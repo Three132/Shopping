@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>ClickRobot Shopping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14181D; --surface:#1B2028; --surface-2:#232A33; --surface-3:#2A323D;
+    --border:#2C3440; --text:#E9EBEE; --text-dim:#8F97A5; --text-faint:#5B6472;
+    --ev3:#E8543E; --wedo:#4FB89C; --vex:#7A8CD4;
+    --amber:#F2A93B; --success:#5FBF7A; --danger:#E8543E;
+    --radius:12px; --radius-sm:7px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'IBM Plex Sans Thai',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding-bottom:90px;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  button{font-family:inherit;}
+  input{font-family:inherit;}
+  a{color:inherit;}
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    background:var(--bg);
+    border-bottom:2px solid var(--border);
+    padding:16px 20px 18px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    flex-wrap:wrap;
+  }
+  .topbar::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:1px;
+    background-image:radial-gradient(circle, var(--amber) 1.4px, transparent 1.5px);
+    background-size:22px 1px; background-repeat:repeat-x; opacity:.55;
+  }
+  .brand{display:flex; align-items:baseline; gap:8px;}
+  .brand-name{font-size:20px; font-weight:700; letter-spacing:.2px;}
+  .brand-sub{font-size:12px; color:var(--text-faint); font-weight:500;}
+  .branch-select-wrap{display:flex; align-items:center; gap:10px;}
+  .branch-select-wrap label{font-size:12px; color:var(--text-dim); white-space:nowrap;}
+  select#branchSelect{
+    background:var(--surface-2); color:var(--text); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:9px 12px; font-size:14px; font-weight:500;
+    min-width:170px; cursor:pointer;
+  }
+  select#branchSelect:focus{outline:2px solid var(--amber); outline-offset:1px;}
+
+  /* ---------- Setup banner ---------- */
+  .setup-banner{
+    margin:14px 20px 0; padding:11px 14px; border-radius:var(--radius-sm);
+    background:#3A2A16; border:1px solid #6B4A22; color:#F2C98B; font-size:13px; line-height:1.5;
+  }
+  .setup-banner code{background:#00000030; padding:1px 6px; border-radius:4px; font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- Tabs ---------- */
+  .tabs{
+    display:flex; gap:4px; padding:14px 20px 0; overflow-x:auto;
+  }
+  .tab{
+    display:flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid var(--border); color:var(--text-dim);
+    padding:9px 16px; border-radius:999px; font-size:13.5px; font-weight:600; cursor:pointer;
+    white-space:nowrap; transition:all .15s ease;
+  }
+  .tab .dot{width:6px; height:6px; border-radius:50%; background:var(--text-faint); transition:all .25s ease;}
+  .tab .count{font-family:'IBM Plex Mono',monospace; font-weight:500; opacity:.6; font-size:11.5px;}
+  .tab:hover{border-color:var(--surface-3); color:var(--text);}
+  .tab.active{color:var(--text); background:var(--surface); border-color:var(--surface-3);}
+  .tab[data-cat="ev3"].active{color:var(--ev3);}
+  .tab[data-cat="wedo"].active{color:var(--wedo);}
+  .tab[data-cat="vexiq"].active{color:var(--vex);}
+  .tab.active .dot{background:currentColor; box-shadow:0 0 8px currentColor;}
+
+  /* ---------- Toolbar / search ---------- */
+  .toolbar{padding:14px 20px 0;}
+  .search-wrap{position:relative; max-width:420px;}
+  .search-wrap svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.5;}
+  input#searchBox{
+    width:100%; background:var(--surface); border:1px solid var(--border); color:var(--text);
+    padding:10px 14px 10px 38px; border-radius:var(--radius-sm); font-size:13.5px;
+  }
+  input#searchBox:focus{outline:2px solid var(--amber); outline-offset:1px;}
+
+  /* ---------- Content ---------- */
+  main#content{padding:18px 20px 20px;}
+  .parts-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(196px, 1fr)); gap:12px;
+  }
+  .part-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  .part-img{
+    position:relative; aspect-ratio:4/3; background:var(--surface-2);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .part-img img{width:100%; height:100%; object-fit:contain; padding:10px;}
+  .part-img .fallback-label{
+    display:none; padding:10px; text-align:center; font-size:11px; color:var(--text-faint); line-height:1.4;
+  }
+  .part-img.no-image .fallback-label,
+  .part-img.img-error .fallback-label{display:flex; align-items:center; justify-content:center;}
+  .part-img.no-image img,
+  .part-img.img-error img{display:none;}
+  .color-dot{
+    position:absolute; top:8px; right:8px; width:12px; height:12px; border-radius:50%;
+    border:2px solid #00000055;
+  }
+  .part-info{padding:10px 12px 4px; flex:1;}
+  .part-name{font-size:13px; font-weight:600; line-height:1.35; margin-bottom:5px;}
+  .part-meta{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .part-num{font-size:11.5px; color:var(--amber); font-weight:500;}
+  .part-color{font-size:11px; color:var(--text-faint);}
+  .part-existing{
+    margin-top:6px; font-size:11px; color:var(--text-dim);
+    background:var(--surface-2); display:inline-block; padding:2px 8px; border-radius:999px;
+  }
+  .bl-links{display:flex; gap:10px; margin-top:7px;}
+  .bl-links a{font-size:10.5px; color:var(--vex); text-decoration:none; border-bottom:1px dotted var(--vex);}
+  .bl-links a:hover{opacity:.8;}
+  .part-qty{
+    display:flex; align-items:center; gap:0; margin:10px 12px 12px; border:1px solid var(--border);
+    border-radius:var(--radius-sm); overflow:hidden;
+  }
+  .qty-btn{
+    background:var(--surface-2); border:none; color:var(--text); width:34px; height:34px;
+    font-size:16px; cursor:pointer; flex-shrink:0;
+  }
+  .qty-btn:hover{background:var(--surface-3);}
+  .qty-btn:active{background:var(--border);}
+  .qty-input{
+    flex:1; min-width:0; text-align:center; background:var(--bg); border:none; color:var(--text);
+    font-size:14px; font-weight:600; height:34px; border-left:1px solid var(--border); border-right:1px solid var(--border);
+  }
+  .qty-input:focus{outline:none; background:var(--surface-2);}
+  .qty-input::-webkit-outer-spin-button,.qty-input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+
+  /* ---------- Empty states ---------- */
+  .empty-state{
+    padding:60px 20px; text-align:center; color:var(--text-faint); font-size:14px; line-height:1.7;
+  }
+
+  /* ---------- Summary table ---------- */
+  .summary-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius);}
+  table.summary-table{width:100%; border-collapse:collapse; font-size:13px; min-width:720px;}
+  table.summary-table th{
+    text-align:left; padding:11px 12px; background:var(--surface-2); color:var(--text-dim);
+    font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.03em;
+    border-bottom:1px solid var(--border); white-space:nowrap;
+  }
+  table.summary-table td{padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  table.summary-table tr:last-child td{border-bottom:none;}
+  table.summary-table tr:hover td{background:var(--surface);}
+  .cat-tag{
+    display:inline-block; margin-left:8px; font-size:10px; font-weight:600; padding:1px 7px;
+    border-radius:999px; vertical-align:middle;
+  }
+  .cat-tag.ev3{background:#E8543E22; color:var(--ev3);}
+  .cat-tag.wedo{background:#4FB89C22; color:var(--wedo);}
+  .cat-tag.vexiq{background:#7A8CD422; color:var(--vex);}
+  .total-cell{font-weight:700; color:var(--amber);}
+
+  /* ---------- Cart FAB ---------- */
+  .cart-fab{
+    position:fixed; right:20px; bottom:20px; z-index:40;
+    background:var(--amber); color:#1B1300; border:none; border-radius:999px;
+    padding:14px 20px; display:flex; align-items:center; gap:9px; cursor:pointer;
+    font-size:14px; font-weight:700; box-shadow:0 6px 20px #00000055;
+    transition:transform .15s ease;
+  }
+  .cart-fab:hover{transform:translateY(-2px);}
+  .cart-fab .badge{
+    background:#1B1300; color:var(--amber); border-radius:999px; padding:2px 9px;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; min-width:22px; text-align:center;
+  }
+
+  /* ---------- Drawer ---------- */
+  .overlay{
+    position:fixed; inset:0; background:#00000070; z-index:49; opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .overlay.open{opacity:1; pointer-events:auto;}
+  .drawer{
+    position:fixed; top:0; right:0; bottom:0; width:min(420px, 100vw); z-index:50;
+    background:var(--surface); border-left:1px solid var(--border);
+    transform:translateX(100%); transition:transform .25s ease;
+    display:flex; flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-header{
+    padding:18px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between;
+  }
+  .drawer-header h3{margin:0; font-size:16px;}
+  .drawer-close{background:none; border:none; color:var(--text-dim); font-size:18px; cursor:pointer; padding:4px;}
+  .drawer-body{flex:1; overflow-y:auto; padding:8px 20px;}
+  .cart-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 0; border-bottom:1px solid var(--border);
+  }
+  .cart-item:last-child{border-bottom:none;}
+  .cart-item-name{font-size:13.5px; font-weight:600;}
+  .cart-item-num{font-size:11.5px; color:var(--text-faint); margin-top:3px;}
+  .cart-item-qty{display:flex; align-items:center; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; flex-shrink:0;}
+  .cart-item-qty .qty-btn{width:28px; height:28px; font-size:14px;}
+  .cart-item-qty span{width:32px; text-align:center; font-size:13px; font-weight:600;}
+  .empty-cart{padding:40px 0; text-align:center; color:var(--text-faint); font-size:13.5px;}
+  .drawer-footer{padding:16px 20px 20px; border-top:1px solid var(--border);}
+  .field-label{font-size:12px; color:var(--text-dim); display:block; margin-bottom:6px;}
+  .field-label .req{color:var(--danger);}
+  input#ordererName{
+    width:100%; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
+    padding:10px 12px; border-radius:var(--radius-sm); font-size:14px; margin-bottom:12px;
+  }
+  input#ordererName:focus{outline:2px solid var(--amber); outline-offset:1px;}
+  .drawer-branch-note{font-size:12.5px; color:var(--text-dim); margin-bottom:14px;}
+  .drawer-branch-note strong{color:var(--text);}
+  .btn-primary{
+    width:100%; background:var(--amber); color:#1B1300; border:none; border-radius:var(--radius-sm);
+    padding:13px; font-size:14.5px; font-weight:700; cursor:pointer; transition:opacity .15s ease;
+  }
+  .btn-primary:hover{opacity:.9;}
+  .btn-primary:disabled{opacity:.55; cursor:not-allowed;}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed; left:50%; bottom:-80px; transform:translateX(-50%); z-index:60;
+    background:var(--surface-3); color:var(--text); padding:13px 20px; border-radius:var(--radius-sm);
+    font-size:13.5px; font-weight:500; box-shadow:0 6px 20px #00000055; border:1px solid var(--border);
+    transition:bottom .25s ease; max-width:88vw;
+  }
+  .toast.show{bottom:24px;}
+  .toast.success{border-color:var(--success);}
+  .toast.error{border-color:var(--danger);}
+
+  @media (max-width:640px){
+    .topbar{padding:14px 16px 16px;}
+    .tabs,.toolbar,main#content{padding-left:16px; padding-right:16px;}
+    .parts-grid{grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:9px;}
+    .drawer{width:100vw;}
+    .cart-fab{right:16px; bottom:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="brand-name">ClickRobot</span>
+    <span class="brand-sub">Shopping</span>
+  </div>
+  <div class="branch-select-wrap">
+    <label for="branchSelect">สาขา</label>
+    <select id="branchSelect">
+      <option value="">— เลือกสาขา —</option>
+    </select>
+  </div>
+</div>
+
+<div id="setupBannerHolder"></div>
+
+<nav class="tabs" id="tabs"></nav>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" id="searchBox" placeholder="ค้นหาชื่อชิ้นส่วนหรือรหัส">
+  </div>
+</div>
+
+<main id="content"></main>
+
+<button class="cart-fab" id="cartBtn">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  <span>รายการสั่งซื้อ</span>
+  <span class="badge" id="cartCount">0</span>
+</button>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <h3>รายการสั่งซื้อ</h3>
+    <button class="drawer-close" id="closeDrawer">✕</button>
+  </div>
+  <div class="drawer-body" id="cartItems"></div>
+  <div class="drawer-footer">
+    <div class="drawer-branch-note">สาขา: <strong id="drawerBranch">ยังไม่ได้เลือก</strong></div>
+    <label class="field-label" for="ordererName">ชื่อผู้สั่ง <span class="req">*</span></label>
+    <input type="text" id="ordererName" placeholder="กรอกชื่อผู้สั่งซื้อ">
+    <button class="btn-primary" id="submitOrder">ยืนยันสั่งซื้อ</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   CONFIG — paste your deployed Google Apps Script Web App
+   URL below after deploying the backend (see instructions).
+   ========================================================= */
+const API_URL = "https://script.google.com/macros/s/AKfycbxM-3ijw-ZU8NdAl183udAznZJKBQb_EUsoHFD_ASdAoYaCpOS__zIMWGHiWSjw1KEZLA/exec";
+const apiConfigured = API_URL.indexOf("https://script.google.com") === 0;
+
+const BRANCHES = ["เกษตร", "คู้บอน", "วัชรพล", "บางบัวทอง"];
+
+const COLOR_MAP = {
+  "Black":"#2b2b2b","Grey":"#8a8f98","Dark Grey":"#5b6472","Tan":"#d9c199",
+  "Blue":"#3b6fb0","Red":"#c0392b","Yellow":"#e3b23c","Green":"#4a8f5c",
+  "Orange":"#d9822b","Yellowish Green":"#8fae4a","Medium Azur":"#5aa9c9"
+};
+
+/* =========================================================
+   CATALOG — sourced from official LEGO Education element
+   inventories for set 45544 (EV3 Core Set) and set 45300
+   (WeDo 2.0 Core Set), plus common wheel/tire combos cross-
+   referenced against official LEGO part data. VEX IQ items
+   sourced from VEX Robotics' official IQ (2nd gen) parts
+   poster and kit-contents pages (vexrobotics.com).
+   "num" = LEGO design/part number or VEX SKU,
+   "elementId" = specific colored LEGO element id (for image),
+   "img" = VEX Robotics official icon slug (for image),
+   "tireNum" = paired tire's LEGO design number, for wheel+tire
+   combo entries (used as an extra image lookup + shown in UI).
+   ========================================================= */
+const CATALOG = {
+  ev3: [
+    {id:"ev3-brick", name:"EV3 Intelligent Brick", num:"45500", elementId:"6261688", color:"White"},
+    {id:"ev3-large-motor", name:"EV3 Large Servo Motor", num:"45502", elementId:"6219427", color:"White"},
+    {id:"ev3-medium-motor", name:"EV3 Medium Motor", num:"45503", elementId:"6230508", color:"Grey"},
+    {id:"ev3-touch", name:"EV3 Touch Sensor", num:"45507", elementId:"6227941", color:"Grey"},
+    {id:"ev3-color", name:"EV3 Color Sensor", num:"45506", elementId:"6239012", color:"Grey"},
+    {id:"ev3-ultrasonic", name:"EV3 Ultrasonic Sensor", num:"45504", elementId:"6310609", color:"Grey"},
+    {id:"ev3-gyro", name:"EV3 Gyro Sensor", num:"45505", elementId:"6227055", color:"Grey"},
+    {id:"ev3-cable-25", name:"EV3 Cable 25cm", num:"11145", elementId:"6178438", color:"Black"},
+    {id:"ev3-cable-35", name:"EV3 Cable 35cm", num:"11146", elementId:"6178439", color:"Black"},
+    {id:"ev3-cable-50", name:"EV3 Cable 50cm", num:"11147", elementId:"6178448", color:"Black"},
+    {id:"ev3-usb", name:"EV3 USB Cable 2M", num:"10916", elementId:"6192039", color:"Black"},
+    {id:"ev3-axle-4", name:"Cross Axle 4M", num:"3705", elementId:"370526", color:"Black"},
+    {id:"ev3-axle-5", name:"Cross Axle 5M", num:"32073", elementId:"4211639", color:"Grey"},
+    {id:"ev3-axle-6", name:"Cross Axle 6M", num:"3706", elementId:"370626", color:"Black"},
+    {id:"ev3-axle-7", name:"Cross Axle 7M", num:"44294", elementId:"4211805", color:"Grey"},
+    {id:"ev3-axle-8", name:"Cross Axle 8M", num:"3707", elementId:"370726", color:"Black"},
+    {id:"ev3-axle-8-end", name:"Cross Axle 8M w/ End Stop", num:"55013", elementId:"4499858", color:"Dark Grey"},
+    {id:"ev3-axle-10", name:"Cross Axle 10M", num:"3737", elementId:"373726", color:"Black"},
+    {id:"ev3-axle-12", name:"Cross Axle 12M", num:"3708", elementId:"370826", color:"Black"},
+    {id:"ev3-axle-4-end", name:"Cross Axle 4M w/ End Stop", num:"87083", elementId:"6083620", color:"Dark Grey"},
+    {id:"ev3-axle-ext-2", name:"Cross Axle Extension 2M", num:"59443", elementId:"4513174", color:"Red"},
+    {id:"ev3-axle-groove-2", name:"Cross Axle 2M w/ Groove", num:"32062", elementId:"4142865", color:"Red"},
+    {id:"ev3-conn-friction", name:"Connector Peg w/ Friction", num:"2780", elementId:"4121715", color:"Black"},
+    {id:"ev3-conn-friction-3m", name:"Connector Peg w/ Friction 3M", num:"6558", elementId:"4514553", color:"Blue"},
+    {id:"ev3-conn-3m", name:"3M Connector Peg", num:"39888", elementId:"6321305", color:"Tan"},
+    {id:"ev3-conn-cross", name:"Connector Peg/Cross Axle", num:"6562", elementId:"4666579", color:"Tan"},
+    {id:"ev3-bush-friction", name:"Conn. Bush w/ Friction/Cross Axle", num:"43093", elementId:"4206482", color:"Blue"},
+    {id:"ev3-bush-half", name:"1/2 Bush", num:"42136", elementId:"6271167", color:"Yellow"},
+    {id:"ev3-snap-2m", name:"2M Fric. Snap w/ Cross Hole", num:"32054", elementId:"4140806", color:"Red"},
+    {id:"ev3-beam-3m", name:"Technic 3M Beam", num:"32523", elementId:"4142822", color:"Black"},
+    {id:"ev3-beam-5m", name:"Technic 5M Beam", num:"32316", elementId:"4211651", color:"Grey"},
+    {id:"ev3-beam-ang-3x5", name:"Technic Ang. Beam 3x5 90°", num:"32526", elementId:"4211713", color:"Grey"},
+    {id:"ev3-beam-ang-4x2", name:"Technic Ang. Beam 4x2 90°", num:"42137", elementId:"6271827", color:"Red"},
+    {id:"ev3-beam-ang-4x6", name:"Technic Angular Beam 4x6", num:"42149", elementId:"6279881", color:"Black"},
+    {id:"ev3-beam-1x2-cross", name:"Beam 1x2 w/ Cross and Hole", num:"40147", elementId:"6265091", color:"Black"},
+    {id:"ev3-tbeam-3x3", name:"T-Beam 3x3 w/ Hole", num:"60484", elementId:"4552347", color:"Black"},
+    {id:"ev3-crossblock-double", name:"Double Cross Block", num:"42142", elementId:"6276951", color:"Black"},
+    {id:"ev3-crossblock-3m", name:"Cross Block 3M", num:"42796", elementId:"6273715", color:"Grey"},
+    {id:"ev3-crossblock-2x1", name:"Technic Cross Block 2x1", num:"42163", elementId:"6280394", color:"Black"},
+    {id:"ev3-crossblock-fork", name:"Technic Cross Block/Fork 2x2", num:"41678", elementId:"4162857", color:"Black"},
+    {id:"ev3-angle-0", name:"Angle Element 0° [1]", num:"42127", elementId:"6284699", color:"Black"},
+    {id:"ev3-angle-90", name:"Angle Element 90° [6]", num:"42155", elementId:"6268905", color:"Black"},
+    {id:"ev3-angle-180", name:"Angle Element 180° [2]", num:"42134", elementId:"6271869", color:"Black"},
+    {id:"ev3-panel-l-5x11", name:"Left Panel 5x11", num:"64392", elementId:"4541326", color:"Black"},
+    {id:"ev3-panel-r-5x11", name:"Right Panel 5x11", num:"64682", elementId:"4543490", color:"Black"},
+    {id:"ev3-panel-l-3x5", name:"Left Panel 3x5", num:"87080", elementId:"4566251", color:"Black"},
+    {id:"ev3-panel-r-3x5", name:"Right Panel 3x5", num:"87086", elementId:"4566249", color:"Black"},
+    {id:"ev3-knuckle", name:"2x1x3 Steering Knuckle Arm", num:"61408", elementId:"6313520", color:"Black"},
+    {id:"ev3-lever", name:"Lever 1x4 without Notch", num:"63782", elementId:"6327548", color:"Black"},
+    {id:"ev3-hto-vbeam", name:"HTO V Beam 90°", num:"44809", elementId:"6008527", color:"Red"},
+    {id:"ev3-damper", name:"Damper 2M", num:"45590", elementId:"4198367", color:"Black"},
+    {id:"ev3-powerjoint", name:"Power Joint", num:"65453", elementId:"6296844", color:"Grey"},
+    {id:"ev3-wheel-z12-1m", name:"Double Conical Wheel Z12 1M", num:"32270", elementId:"4177431", color:"Black"},
+    {id:"ev3-wheel-z20-1m", name:"Double Conical Wheel Z20 1M", num:"18575", elementId:"6346535", color:"Black"},
+    {id:"ev3-wheel-z36", name:"Double Conical Wheel Z36", num:"32498", elementId:"4255563", color:"Black"},
+    {id:"ev3-wheel-z12-tan", name:"Conical Wheel Z12", num:"6589", elementId:"4565452", color:"Tan"},
+    {id:"ev3-wheel-angular", name:"Technic Angular Wheel", num:"49135", elementId:"6284188", color:"Black"},
+    {id:"ev3-wheel-wedge", name:"Wedge-Belt Wheel Ø24", num:"49750", elementId:"6321744", color:"Grey"},
+    {id:"ev3-sprocket", name:"Sprocket Ø40.7", num:"57519", elementId:"4582792", color:"Black"},
+    {id:"ev3-gear-t8", name:"Gear Wheel T=8 M=1", num:"10928", elementId:"6012451", color:"Grey"},
+    {id:"ev3-gear-z24", name:"Gear Wheel Z24", num:"24505", elementId:"6133119", color:"Grey"},
+    {id:"ev3-tyre-wedge", name:"Tyre for Wedge-Belt Wheel", num:"2815", elementId:"6028041", color:"Black"},
+    {id:"ev3-tyre-low", name:"Tyre Low Wide Ø56x28", num:"41897", elementId:"6035364", color:"Black"},
+    {id:"ev3-track", name:"Track Element 5x1.5", num:"42479", elementId:"6325504", color:"Black"},
+    {id:"ev3-turntable", name:"Upper Part for Turntable Z28", num:"39892", elementId:"6326620", color:"Black"},
+    {id:"ev3-wtc-01", name:"Wheel 11mm Pin (12mm) + Tire 21mm Offset Small Wide", num:"6014", tireNum:"6015", color:"Black"},
+    {id:"ev3-wtc-02", name:"Wheel 18mm w/ Fake Bolts + Tire 30.4x14mm Offset", num:"55982", tireNum:"92402", color:"Black"},
+    {id:"ev3-wtc-03", name:"Wheel 11mm Pin + Tire 14x6mm Smooth", num:"42610", tireNum:"50951", color:"Black"},
+    {id:"ev3-wtc-04", name:"Wheel 11mm Pin + Tire 17.5x6mm Staggered", num:"42610", tireNum:"92409", color:"Black"},
+    {id:"ev3-wtc-05", name:"Wheel 30mm Axle + Tire 37x22mm ZR", num:"56145", tireNum:"55978", color:"Black"},
+    {id:"ev3-wtc-06", name:"Wheel Technic Racing Small 3-Pinhole + Tire 43.2mm", num:"41896", tireNum:"45928", color:"Black"},
+    {id:"ev3-wtc-07", name:"Wheel 30mm Axle + Tire 43.2x26mm Balloon", num:"56145", tireNum:"61481", color:"Black"},
+    {id:"ev3-wtc-08", name:"Wheel 30mm Axle + Tire 56x26mm Balloon", num:"56145", tireNum:"55976", color:"Black"},
+    {id:"ev3-wtc-09", name:"Wheel Technic Racing Medium 6-Pinhole + Tire 107x44 Tractor", num:"15038", tireNum:"23798", color:"Black"},
+    {id:"ev3-wtc-10", name:"Wheel Technic Racing Medium 6-Pinhole + Tire 68.8x36mm ZR", num:"15038", tireNum:"44771", color:"Black"},
+    {id:"ev3-wtc-11", name:"Wheel Technic Racing Large + Tire 81.6x44mm ZR Straight Tread", num:"23800", tireNum:"23799", color:"Black"},
+    {id:"ev3-wtc-12", name:"Wheel 43.2mm Axle + Tire 62.4x20mm", num:"86652", tireNum:"32019", color:"Black"},
+    {id:"ev3-wtc-13", name:"Wheel 75mm Axle + Tire 94.2x22mm Motorcycle", num:"88517", tireNum:"88516", color:"Black"},
+    {id:"ev3-wtc-14", name:"Wheel 75mm Axle + Tire 100.6x22mm Motorcycle", num:"88517", tireNum:"11957", color:"Black"}
+  ],
+  wedo: [
+    {id:"wedo-hub", name:"WeDo 2.0 Smarthub", num:"19071", elementId:"6257893", color:"White"},
+    {id:"wedo-motor", name:"WeDo 2.0 Medium Motor", num:"21980", elementId:"6290182", color:"White"},
+    {id:"wedo-motion", name:"WeDo 2.0 Motion Sensor", num:"20844", elementId:"6299496", color:"White"},
+    {id:"wedo-tilt", name:"WeDo 2.0 Tilt Sensor", num:"20841", elementId:"6327011", color:"White"},
+    {id:"wedo-brick-2x2", name:"Brick 2x2", num:"3003", elementId:"300326", color:"Black"},
+    {id:"wedo-plate-2x16", name:"Plate 2x16", num:"4282", elementId:"428226", color:"Black"},
+    {id:"wedo-plate-round-1x1", name:"Round Plate 1x1", num:"6141", elementId:"614126", color:"Black"},
+    {id:"wedo-roof-1x2-black", name:"Roof Tile 1x2/45°", num:"3040", elementId:"4121966", color:"Black"},
+    {id:"wedo-tbeam-plate", name:"T-Beam w/ Plate 1x2 w/ Tube", num:"32530", elementId:"4144024", color:"Black"},
+    {id:"wedo-slideshoe", name:"Slide Shoe Round 2x2", num:"2654", elementId:"4278359", color:"Black"},
+    {id:"wedo-tyre-balloon", name:"Tyre Balloon Wide Ø37x18", num:"56891", elementId:"4506553", color:"Black"},
+    {id:"wedo-turntable-bottom", name:"Bottom w/ Turntable 4x4", num:"61485", elementId:"4517986", color:"Black"},
+    {id:"wedo-tyre-normal", name:"Tyre Normal Wide Ø30.4x14", num:"92402", elementId:"4619323", color:"Black"},
+    {id:"wedo-brick-2balls", name:"Brick 2x2 w/ 2 Balls Ø10.2", num:"17114", elementId:"6092732", color:"Black"},
+    {id:"wedo-string", name:"String Ø1.5mm 0.5M", num:"23241", elementId:"6123991", color:"Black"},
+    {id:"wedo-axle-6", name:"Cross Axle 6M", num:"3706", elementId:"370626", color:"Black"},
+    {id:"wedo-axle-10", name:"Cross Axle 10M", num:"3737", elementId:"373726", color:"Black"},
+    {id:"wedo-conn-friction", name:"Connector Peg w/ Friction", num:"2780", elementId:"4121715", color:"Black"},
+    {id:"wedo-wheel-z12", name:"Double Conical Wheel Z12 1M", num:"32270", elementId:"4177431", color:"Black"},
+    {id:"wedo-damper", name:"Damper 2M", num:"45590", elementId:"4198367", color:"Black"},
+    {id:"wedo-tyre-wedge", name:"Tyre for Wedge-Belt Wheel", num:"2815", elementId:"6028041", color:"Black"},
+    {id:"wedo-axle-snap", name:"Cross Axle 2M w/ Snap w/ Fric.", num:"18651", elementId:"6089119", color:"Black"},
+    {id:"wedo-wheel-z20", name:"Double Conical Wheel Z20 1M", num:"18575", elementId:"6346535", color:"Black"},
+    {id:"wedo-conn-cross", name:"Connector Peg/Cross Axle", num:"6562", elementId:"4666579", color:"Tan"},
+    {id:"wedo-bevelgear", name:"Bevel Gear Z20", num:"32198", elementId:"6031962", color:"Tan"},
+    {id:"wedo-flower-stalk", name:"Flower, Stalk", num:"4727", elementId:"4143562", color:"Green"},
+    {id:"wedo-plate-2x8holes", name:"Plate 2x8 w/ Holes", num:"3738", elementId:"6138494", color:"Green"},
+    {id:"wedo-plate-round-2x2", name:"Plate 2x2 Round", num:"4032", elementId:"6138624", color:"Green"},
+    {id:"wedo-grass", name:"Grass w/ 3.2 Tube", num:"31576", elementId:"6188693", color:"Green"},
+    {id:"wedo-beam-7m", name:"Technic 7M Beam", num:"32524", elementId:"6097392", color:"Green"},
+    {id:"wedo-beam-ang-3x5-g", name:"Technic Ang. Beam 3x5 90°", num:"32526", elementId:"6097397", color:"Green"},
+    {id:"wedo-tube-double", name:"Tube w/ Double 4.85 Hole", num:"29219", elementId:"6173135", color:"Green"},
+    {id:"wedo-separator", name:"Element Separator", num:"31510", elementId:"6240515", color:"Orange"},
+    {id:"wedo-roof-orange", name:"Roof Tile 1x2x2/3 ABS", num:"85984", elementId:"6024286", color:"Orange"},
+    {id:"wedo-brick-2x4-orange", name:"Brick 2x4", num:"3001", elementId:"6100027", color:"Orange"},
+    {id:"wedo-snowboard", name:"Mini Figure Snow Board", num:"18746", elementId:"6105957", color:"Orange"},
+    {id:"wedo-roof-1x3", name:"Roof Tile 1x3/25°", num:"4286", elementId:"6131583", color:"Orange"},
+    {id:"wedo-plate-2x4-holes", name:"Plate 2x4, 3xØ4.9", num:"3709", elementId:"6132408", color:"Orange"},
+    {id:"wedo-plate-2x6-holes", name:"Plate 2x6 w/ Holes", num:"32001", elementId:"6132409", color:"Orange"},
+    {id:"wedo-roof-inv", name:"Roof Tile 1x2 Inv.", num:"3665", elementId:"6136455", color:"Orange"},
+    {id:"wedo-ball-cross", name:"Ball 10.2 w/ Cross Hole", num:"32474", elementId:"6071608", color:"Orange"},
+    {id:"wedo-vbelt-red", name:"V-Belt Ø24", num:"85544", elementId:"4544143", color:"Red"},
+    {id:"wedo-flower", name:"Flower", num:"98262", elementId:"6000020", color:"Red"},
+    {id:"wedo-axle-groove", name:"2M Cross Axle w/ Groove", num:"32062", elementId:"4142865", color:"Red"},
+    {id:"wedo-vbelt-yellow", name:"V-Belt Ø33", num:"85546", elementId:"4544151", color:"Yellow"},
+    {id:"wedo-bush-half", name:"1/2 Bush", num:"42136", elementId:"6271167", color:"Yellow"},
+    {id:"wedo-roof-yg", name:"Roof Tile 1x2/45°", num:"3040", elementId:"4537925", color:"Yellowish Green"},
+    {id:"wedo-brick-bow", name:"Brick w/ Bow 1/3", num:"50950", elementId:"4537928", color:"Yellowish Green"},
+    {id:"wedo-plate-26deg", name:"Plate 4x6 26°", num:"32059", elementId:"6116514", color:"Yellowish Green"},
+    {id:"wedo-techbrick-1x2", name:"Technic Brick 1x2 Ø4.9", num:"3700", elementId:"6132372", color:"Yellowish Green"},
+    {id:"wedo-techbrick-1x4", name:"Technic Brick 1x4 Ø4.9", num:"3701", elementId:"6132373", color:"Yellowish Green"},
+    {id:"wedo-techbrick-1x8", name:"Technic Brick 1x8", num:"3702", elementId:"6132375", color:"Yellowish Green"},
+    {id:"wedo-techbrick-1x12", name:"Technic Brick 1x12 Ø4.9", num:"3895", elementId:"6132377", color:"Yellowish Green"},
+    {id:"wedo-techbrick-1x16", name:"Technic Brick 1x16 Ø4.9", num:"3703", elementId:"6132379", color:"Yellowish Green"},
+    {id:"wedo-roof-inv-25", name:"Roof Tile 1x3/25° Inv.", num:"4287", elementId:"6138622", color:"Yellowish Green"},
+    {id:"wedo-brick-1x6bow", name:"Brick 1x6 w/ Bow", num:"42022", elementId:"6139693", color:"Yellowish Green"},
+    {id:"wedo-angle-135", name:"Angle Element 135° [4]", num:"42156", elementId:"6262901", color:"Yellowish Green"},
+    {id:"wedo-bobbin", name:"Bobbin", num:"32012", elementId:"4239891", color:"Grey"},
+    {id:"wedo-brick-ball", name:"Brick 2x2 w/ Ball Ø10.2", num:"57909", elementId:"4497253", color:"Grey"},
+    {id:"wedo-tile-round-hole", name:"Flat Tile 2x2 Round w/ Hole", num:"15535", elementId:"6055313", color:"Grey"},
+    {id:"wedo-brick-crosshole", name:"Brick 1x2 w/ Cross Hole", num:"31493", elementId:"6178919", color:"Grey"},
+    {id:"wedo-chain", name:"Chain 16M", num:"39759", elementId:"6258887", color:"Grey"},
+    {id:"wedo-gear-t8", name:"Gear Wheel T=8 M=1", num:"10928", elementId:"6012451", color:"Grey"},
+    {id:"wedo-axle-4-end", name:"Cross Axle 4M w/ End Stop", num:"87083", elementId:"6083620", color:"Grey"},
+    {id:"wedo-gear-z24", name:"Gear Wheel Z24", num:"24505", elementId:"6133119", color:"Grey"},
+    {id:"wedo-brick-2x4-azur", name:"Brick 2x4", num:"3001", elementId:"4625629", color:"Medium Azur"},
+    {id:"wedo-tile-1x2-azur", name:"Flat Tile 1x2", num:"3069", elementId:"4649741", color:"Medium Azur"}
+  ],
+  vexiq: [
+    {id:"vex-brain", name:"IQ Robot Brain (2nd Gen)", num:"228-6480", img:"electronics-robot-brain", color:""},
+    {id:"vex-controller", name:"IQ Controller (2nd Gen)", num:"228-6470", img:"electronics-controller", color:""},
+    {id:"vex-battery", name:"IQ Robot Battery (2nd Gen)", num:"228-7045", img:"electronics-robot-battery", color:""},
+    {id:"vex-motor", name:"IQ Smart Motor", num:"228-2560", img:"electronics-smart-motor", color:""},
+    {id:"vex-usb-cable", name:"USB-A to USB-C Cable", num:"228-6960", img:"electronics-2m-usb-cable", color:""},
+    {id:"vex-touch-led", name:"Touch LED", num:"228-3010", img:"electronics-touch-led", color:""},
+    {id:"vex-bumper", name:"Bumper Switch", num:"228-2677", img:"electronics-bumper-sensor", color:""},
+    {id:"vex-optical", name:"Optical Sensor", num:"", img:"electronics-optical-sensor", color:""},
+    {id:"vex-distance", name:"Distance Sensor (2nd Gen)", num:"", img:"electronics-distance-sensor", color:""},
+    {id:"vex-smart-cable", name:"Smart Cable (assorted lengths)", num:"228-2780", img:"electronics-smart-cables", color:""},
+    {id:"vex-rope", name:"24x Pitch Rope", num:"228-7884", img:"specialty-parts-24x-pitch-rope", color:""},
+    {id:"vex-panel", name:"2x8 Smooth Panel", num:"", img:"specialty-parts-2x8-smooth-panel", color:""},
+    {id:"vex-pintool", name:"Pin Tool", num:"228-4035", img:"specialty-parts-pin-tool", color:""},
+    {id:"vex-spool", name:"1x Wide Spool", num:"228-7884", img:"specialty-parts-1x-wide-spool", color:""},
+    {id:"vex-crankarm", name:"Crank Arm w/ 23 Tooth Gear", num:"", img:"specialty-parts-1x4-crank-arm-with-23-tooth-gear", color:""},
+    {id:"vex-rubberband", name:"Silicone Rubber Band #32", num:"228-6633", img:"specialty-parts-silicone-rubber-band", color:""},
+    {id:"vex-rubberanchor", name:"Rubber Band Anchor", num:"228-3699", img:"specialty-parts-rubber-band-anchor", color:""},
+    {id:"vex-tractionlink", name:"Traction Link", num:"228-2878", img:"specialty-parts-traction-link", color:""},
+    {id:"vex-intakeflap", name:"Intake Flap", num:"228-2878", img:"specialty-parts-intake-flaps", color:""},
+    {id:"vex-shaft-snap1x", name:"1x Pitch Plastic Motor Snap Shaft", num:"228-3620", img:"shafts-1x-pitch-plastic-motor-snap-shaft", color:""},
+    {id:"vex-shaft-capped2x", name:"2x Pitch Capped Shaft", num:"228-3057", img:"shafts-2x-pitch-capped-shafts", color:""},
+    {id:"vex-shaft-capped3x", name:"3x Pitch Capped Shaft", num:"228-3057", img:"shafts-3x-pitch-capped-shaft", color:""},
+    {id:"vex-shaft-cappedplastic3x", name:"3x Pitch Capped Plastic Shaft", num:"228-3620", img:"shafts-3x-pitch-capped-plastic-shaft", color:""},
+    {id:"vex-shaft-capped4x", name:"4x Pitch Capped Shaft", num:"228-3057", img:"shafts-4x-pitch-capped-shaft", color:""},
+    {id:"vex-shaft-4x", name:"4x Pitch Shaft (long)", num:"228-3057", img:"shafts-4x-pitch-shaft", color:""},
+    {id:"vex-shaft-capped5x", name:"5x Pitch Capped Shaft", num:"228-3057", img:"shafts-5x-pitch-capped-shaft", color:""},
+    {id:"vex-shaft-cappedplastic5x", name:"5x Pitch Capped Plastic Shaft", num:"228-3620", img:"shafts-5x-pitch-capped-plastic-shaft", color:""},
+    {id:"vex-shaft-6x", name:"6x Pitch Shaft (long)", num:"228-3057", img:"shafts-6x-pitch-shaft", color:""},
+    {id:"vex-shaft-motor", name:"Pitch Motor Shaft (2x/3x/4x)", num:"228-7456", img:"shafts-pitch-motor-shafts", color:""},
+    {id:"vex-shaft-motorplastic", name:"Pitch Plastic Motor Shaft (2x/3x/4x)", num:"228-3620", img:"shafts-pitch-plastic-motor-shafts", color:""},
+    {id:"vex-shaftcollar", name:"Rubber Shaft Collar", num:"228-3510", img:"shafts-rubber-shaft-collar", color:""},
+    {id:"vex-shaftspacer", name:"0.25x Pitch Shaft Spacer", num:"228-3511", img:"shafts-0.25-pitch-shaft-spacer", color:""},
+    {id:"vex-washer", name:"Washer", num:"228-3511", img:"shafts-washer", color:""},
+    {id:"vex-corner-doubletriple", name:"Corner Connector — Double/Triple-Sided", num:"228-3513", img:"connectors-double-triple-corner-connectors", color:""},
+    {id:"vex-corner-2xwide", name:"Corner Connector — 2x Wide Single-Sided", num:"228-3513", img:"connectors-2x-wide-single-side-corner-connectors", color:""},
+    {id:"vex-corner-singlerow", name:"Corner Connector — 2x Wide Single Row", num:"228-4391", img:"connectors-2x-wide-single-sided-single-row-corner-connector", color:""},
+    {id:"vex-standoff", name:"Pitch Standoff (assorted)", num:"228-3514", img:"pins-and-standoffs-pitch-standoffs", color:""},
+    {id:"vex-standoff-ext", name:"0.5x Pitch Standoff Extender", num:"228-7461", img:"pins-and-standoffs-0.5x-pitch-standoff-extender", color:""},
+    {id:"vex-standoffconn", name:"Standoff Connector", num:"228-3514", img:"pins-and-standoffs-standoff-connectors", color:""},
+    {id:"vex-connpin-22", name:"2x2 Connector Pin", num:"228-3058", img:"pins-and-standoffs-2x2-connector-pin", color:""},
+    {id:"vex-connpin-12", name:"1x2 Connector Pin", num:"228-3058", img:"pins-and-standoffs-1x2-connector-pin", color:""},
+    {id:"vex-connpin-11", name:"1x1 Connector Pin", num:"228-3058", img:"pins-and-standoffs-1x1-connector-pin", color:""},
+    {id:"vex-idlerpin-11", name:"1x1 Idler Pin", num:"228-3620", img:"pins-and-standoffs-1x1-idler-pin", color:""},
+    {id:"vex-idlerpin-02", name:"0x2 Idler Pin", num:"228-3620", img:"pins-and-standoffs-0x2-idler-pin", color:""},
+    {id:"vex-connpin-02", name:"0x2 Connector Pin", num:"228-5656", img:"pins-and-standoffs-0x2-connector-pin", color:""},
+    {id:"vex-connpin-03", name:"0x3 Connector Pin", num:"228-5656", img:"pins-and-standoffs-0x3-connector-pin", color:""},
+    {id:"vex-wheelhub", name:"Wheel Hub (44mm)", num:"228-3505", img:"wheels-wheel-hub", color:""},
+    {id:"vex-traveltire", name:"200mm Travel Tire", num:"228-3505", img:"wheels-200mm-travel-tire", color:""},
+    {id:"vex-widehub", name:"2x Wide 48.5mm Diameter Hub", num:"228-7885", img:"wheels-2x-wide-48.5mm-diameter-hub", color:""},
+    {id:"vex-balloontire", name:"5x Pitch Diameter Balloon Tire", num:"228-7885", img:"wheels-5x-pitch-diameter-balloon-tire", color:""},
+    {id:"vex-omniwheel", name:"200mm Travel Omni-Directional Wheel", num:"228-2536", img:"wheels-200mm-travel-omni-directional-wheel", color:""},
+    {id:"vex-lockbeam-offset", name:"2x2 Center Offset Round Lock Beam", num:"228-7885", img:"wheels-2x2-center-offset-round-lock-beam", color:""},
+    {id:"vex-lockbeam-endlp", name:"1x4 Low-Profile End Lock Beam", num:"228-3511", img:"beams-and-plates-lock-beams", color:""},
+    {id:"vex-lockbeam-center", name:"1x3 Center Lock Beam", num:"228-3511", img:"beams-and-plates-lock-beams", color:""},
+    {id:"vex-beam-1x1", name:"1x1 Beam", num:"228-3503", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x2", name:"1x2 Beam", num:"228-4414", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x4", name:"1x4 Beam", num:"228-3503", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x5", name:"1x5 Beam", num:"228-4412", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x6", name:"1x6 Beam", num:"228-3503", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x8", name:"1x8 Beam", num:"228-3503", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x10", name:"1x10 Beam", num:"228-3503", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x12", name:"1x12 Beam", num:"228-3503", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-1x16", name:"1x16 Beam", num:"228-4416", img:"beams-and-plates-beams", color:""},
+    {id:"vex-beam-2x2", name:"2x2 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x4", name:"2x4 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x6", name:"2x6 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x7", name:"2x7 Beam", num:"228-4413", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x8", name:"2x8 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x10", name:"2x10 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x12", name:"2x12 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x16", name:"2x16 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x18", name:"2x18 Beam", num:"228-5653", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-beam-2x20", name:"2x20 Beam", num:"228-3509", img:"beams-and-plates-large-beams", color:""},
+    {id:"vex-angle-3x5right", name:"3x5 Right Angle Beam", num:"228-3699", img:"beams-and-plates-angle-beams", color:""},
+    {id:"vex-angle-3x4tee", name:"3x4 Tee Beam", num:"228-3699", img:"beams-and-plates-angle-beams", color:""},
+    {id:"vex-angle-offsetright", name:"Offset Right Angle Beam", num:"228-3699", img:"beams-and-plates-angle-beams", color:""},
+    {id:"vex-angle-2x3right", name:"2x3 Right Angle Beam", num:"228-3699", img:"beams-and-plates-angle-beams-2", color:""},
+    {id:"vex-angle-30", name:"30° Angle Beam", num:"228-3699", img:"beams-and-plates-angle-beams-2", color:""},
+    {id:"vex-angle-45", name:"45° Angle Beam", num:"228-3699", img:"beams-and-plates-angle-beams-2", color:""},
+    {id:"vex-angle-60", name:"60° Angle Beam", num:"228-3699", img:"beams-and-plates-angle-beams-2", color:""},
+    {id:"vex-plate-3x3", name:"3x3 Plate", num:"", img:"beams-and-plates-plates", color:""},
+    {id:"vex-plate-4x4", name:"4x4 Plate", num:"228-3504", img:"beams-and-plates-plates", color:""},
+    {id:"vex-plate-4x8", name:"4x8 Plate", num:"228-3515", img:"beams-and-plates-plates", color:""},
+    {id:"vex-gear-12", name:"12 Tooth Gear", num:"228-3502", img:"gears-gears", color:""},
+    {id:"vex-gear-24", name:"24 Tooth Gear", num:"228-4127", img:"gears-gears", color:""},
+    {id:"vex-gear-36", name:"36 Tooth Gear", num:"228-3502", img:"gears-gears", color:""},
+    {id:"vex-gear-48", name:"48 Tooth Gear", num:"228-4127", img:"gears-gears", color:""},
+    {id:"vex-sprocket-8", name:"8 Tooth Sprocket", num:"228-3950", img:"sprockets-and-chain-sprockets", color:""},
+    {id:"vex-sprocket-16", name:"16 Tooth Sprocket", num:"228-3950", img:"sprockets-and-chain-sprockets", color:""},
+    {id:"vex-sprocket-24", name:"24 Tooth Sprocket", num:"228-3950", img:"sprockets-and-chain-sprockets", color:""},
+    {id:"vex-chainlink", name:"Chain Link", num:"228-3950", img:"sprockets-and-chain-chain-link", color:""}
+  ]
+};
+
+const CAT_LABELS = {ev3:"EV3", wedo:"WeDo", vexiq:"VEX IQ"};
+
+/* ---------- State ---------- */
+let state = { branch:"", category:"ev3", search:"" };
+let cart = {};
+let totalsMap = {};
+let summaryRows = [];
+let drawerOpen = false;
+let submitting = false;
+
+/* ---------- Helpers ---------- */
+function escapeHtml(str){
+  return String(str==null?"":str).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function findPart(id){
+  for (const cat of Object.keys(CATALOG)){
+    const found = CATALOG[cat].find(p => p.id === id);
+    if (found) return Object.assign({}, found, {category:cat});
+  }
+  return null;
+}
+/* หลายแหล่งรูปเรียงลำดับความน่าเชื่อถือ — เช็ครูปในเครื่อง (โฟลเดอร์ images/ ข้าง ๆ ไฟล์นี้ ได้จาก
+   การรัน download_images.py) ก่อนเป็นอันดับแรก ถ้าไม่มีค่อยลองโหลดจากอินเทอร์เน็ตไล่ทีละแหล่ง
+   ก่อนจะ fallback เป็นชื่อชิ้นส่วนแบบข้อความในที่สุด */
+function imgSourcesFor(part){
+  const sources = [];
+  if (part.elementId || part.num || part.img){
+    sources.push("images/" + part.id + ".jpg");
+    sources.push("images/" + part.id + ".png");
+    sources.push("images/" + part.id + ".svg");
+  }
+  if (part.img){
+    sources.push("https://content.vexrobotics.com/resources/parts-posters/iqgen2/education-kit/" + part.img + ".svg");
+  }
+  if (part.elementId){
+    sources.push("https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/" + part.elementId + ".jpg");
+    sources.push("https://images.brickset.com/parts/" + part.elementId + ".jpg");
+  }
+  if (part.num && !part.img){
+    sources.push("https://img.bricklink.com/ItemImage/PN/0/" + part.num + ".png");
+  }
+  if (part.tireNum){
+    sources.push("https://img.bricklink.com/ItemImage/PN/0/" + part.tireNum + ".png");
+  }
+  return sources;
+}
+function tryNextImg(img){
+  let fallbacks = [];
+  try { fallbacks = JSON.parse(img.getAttribute("data-fallbacks") || "[]"); } catch(e){}
+  if (fallbacks.length){
+    const next = fallbacks.shift();
+    img.setAttribute("data-fallbacks", JSON.stringify(fallbacks));
+    img.src = next;
+  } else {
+    img.style.display = "none";
+    img.parentElement.classList.add("img-error");
+  }
+}
+
+/* ---------- Init ---------- */
+function init(){
+  const sel = document.getElementById("branchSelect");
+  BRANCHES.forEach(b => {
+    const opt = document.createElement("option");
+    opt.value = b; opt.textContent = b;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener("change", e => {
+    state.branch = e.target.value;
+    renderDrawerBranch();
+  });
+
+  if (!apiConfigured){
+    document.getElementById("setupBannerHolder").innerHTML =
+      '<div class="setup-banner">ยังไม่ได้เชื่อมต่อ Google Sheet — เปิดไฟล์นี้ด้วยโปรแกรมแก้ไขข้อความ แล้วแก้ค่า <code>API_URL</code> ที่ต้นสคริปต์ให้เป็น URL ของ Apps Script ที่ deploy แล้ว (ดูวิธีตั้งค่าที่แนบมาด้วย)</div>';
+  }
+
+  buildTabs();
+  renderContent();
+  updateCartBadge();
+
+  document.getElementById("searchBox").addEventListener("input", e => {
+    state.search = e.target.value;
+    renderContent();
+  });
+
+  document.getElementById("content").addEventListener("click", onQtyButtonClick);
+  document.getElementById("content").addEventListener("input", onQtyInputChange);
+  document.getElementById("cartItems").addEventListener("click", onQtyButtonClick);
+
+  document.getElementById("cartBtn").addEventListener("click", openDrawer);
+  document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
+  document.getElementById("overlay").addEventListener("click", closeDrawer);
+  document.getElementById("submitOrder").addEventListener("click", submitOrder);
+
+  fetchTotals();
+}
+
+function buildTabs(){
+  const cats = ["ev3","wedo","vexiq","summary"];
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = cats.map(c => {
+    const label = c === "summary" ? "สรุปยอดรวม" : CAT_LABELS[c];
+    const count = c === "summary" ? "" : '<span class="count">' + CATALOG[c].length + "</span>";
+    return '<button class="tab' + (c===state.category?" active":"") + '" data-cat="' + c + '"><span class="dot"></span>' + label + " " + count + "</button>";
+  }).join("");
+  tabs.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      state.category = tab.dataset.cat;
+      state.search = "";
+      document.getElementById("searchBox").value = "";
+      tabs.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t===tab));
+      renderContent();
+    });
+  });
+}
+
+/* ---------- Rendering: catalog grid ---------- */
+function renderContent(){
+  const content = document.getElementById("content");
+  if (state.category === "summary"){
+    content.innerHTML = renderSummaryTable();
+    return;
+  }
+  const list = CATALOG[state.category] || [];
+  const q = state.search.trim().toLowerCase();
+  const filtered = q ? list.filter(p =>
+    p.name.toLowerCase().indexOf(q) !== -1 ||
+    p.num.toLowerCase().indexOf(q) !== -1 ||
+    (p.color||"").toLowerCase().indexOf(q) !== -1
+  ) : list;
+
+  if (filtered.length === 0){
+    content.innerHTML = '<div class="empty-state">' + (
+      list.length === 0
+        ? "ยังไม่มีรายการชิ้นส่วนในหมวดนี้<br>ส่งภาพชีทอะไหล่มาให้เพิ่มได้ภายหลัง"
+        : "ไม่พบชิ้นส่วนที่ค้นหา"
+    ) + "</div>";
+    return;
+  }
+
+  content.innerHTML = '<div class="parts-grid">' + filtered.map(renderPartCard).join("") + "</div>";
+}
+
+function renderPartCard(part){
+  const qty = cart[part.id] || 0;
+  const existing = totalsMap[part.id] || 0;
+  const sources = imgSourcesFor(part);
+  const first = sources[0] || "";
+  const rest = sources.slice(1);
+  const dot = COLOR_MAP[part.color] || "";
+  return '' +
+    '<div class="part-card">' +
+      '<div class="part-img' + (first ? '' : ' no-image') + '">' +
+        (first ? '<img src="' + first + '" data-fallbacks=\'' + JSON.stringify(rest) + '\' loading="lazy" onerror="tryNextImg(this)">' : '') +
+        '<div class="fallback-label">' + escapeHtml(part.name) + '</div>' +
+        (dot ? '<div class="color-dot" style="background:' + dot + '"></div>' : '') +
+      '</div>' +
+      '<div class="part-info">' +
+        '<div class="part-name">' + escapeHtml(part.name) + '</div>' +
+        '<div class="part-meta">' +
+          (part.num ? '<span class="part-num mono">#' + escapeHtml(part.num) + (part.tireNum ? "+" + escapeHtml(part.tireNum) : "") + '</span>' : '') +
+          (part.color ? '<span class="part-color">· ' + escapeHtml(part.color) + '</span>' : '') +
+        '</div>' +
+        (existing > 0 ? '<div class="part-existing">สะสมแล้ว ' + existing + ' ชิ้น</div>' : '') +
+        (part.tireNum ? '<div class="bl-links"><a href="https://www.bricklink.com/v2/catalog/catalogitem.page?P=' + encodeURIComponent(part.num) + '" target="_blank" rel="noopener">ล้อ #' + escapeHtml(part.num) + ' ↗</a><a href="https://www.bricklink.com/v2/catalog/catalogitem.page?P=' + encodeURIComponent(part.tireNum) + '" target="_blank" rel="noopener">ยาง #' + escapeHtml(part.tireNum) + ' ↗</a></div>' : '') +
+      '</div>' +
+      '<div class="part-qty">' +
+        '<button class="qty-btn" data-action="dec" data-id="' + part.id + '">–</button>' +
+        '<input type="number" min="0" inputmode="numeric" class="qty-input mono" data-id="' + part.id + '" value="' + qty + '">' +
+        '<button class="qty-btn" data-action="inc" data-id="' + part.id + '">+</button>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderSummaryTable(){
+  if (summaryRows.length === 0){
+    return '<div class="empty-state">' + (
+      apiConfigured
+        ? "ยังไม่มีคำสั่งซื้อสะสม"
+        : "ยังไม่ได้ตั้งค่าการเชื่อมต่อ Google Sheet — ดูคำแนะนำการตั้งค่าที่แนบมา"
+    ) + '</div>';
+  }
+  return '' +
+    '<div class="summary-wrap"><table class="summary-table"><thead><tr>' +
+      "<th>ชิ้นส่วน</th><th>รหัส</th>" +
+      BRANCHES.map(b => "<th>" + escapeHtml(b) + "</th>").join("") +
+      "<th>รวม</th>" +
+    "</tr></thead><tbody>" +
+    summaryRows.map(r => '' +
+      "<tr>" +
+        "<td>" + escapeHtml(r.partName) + '<span class="cat-tag ' + escapeHtml(r.category) + '">' + (CAT_LABELS[r.category] || r.category) + "</span></td>" +
+        '<td class="mono">' + escapeHtml(r.partNumber) + "</td>" +
+        r.branchTotals.map(v => '<td class="mono">' + (v || "") + "</td>").join("") +
+        '<td class="mono total-cell">' + r.grandTotal + "</td>" +
+      "</tr>"
+    ).join("") +
+    "</tbody></table></div>";
+}
+
+/* ---------- Cart logic ---------- */
+function onQtyButtonClick(e){
+  const btn = e.target.closest(".qty-btn");
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const action = btn.dataset.action;
+  const current = cart[id] || 0;
+  const next = action === "inc" ? current + 1 : Math.max(0, current - 1);
+  setQty(id, next);
+}
+function onQtyInputChange(e){
+  const input = e.target.closest(".qty-input");
+  if (!input) return;
+  let val = parseInt(input.value, 10);
+  if (isNaN(val) || val < 0) val = 0;
+  setQty(input.dataset.id, val, false);
+}
+function setQty(id, val, syncGridInput){
+  if (syncGridInput === undefined) syncGridInput = true;
+  cart[id] = val;
+  if (syncGridInput){
+    document.querySelectorAll('.qty-input[data-id="' + id + '"]').forEach(inp => inp.value = val);
+  }
+  updateCartBadge();
+  if (drawerOpen) renderDrawerItems();
+}
+function updateCartBadge(){
+  const totalQty = Object.keys(cart).reduce((sum,id) => sum + (cart[id] > 0 ? cart[id] : 0), 0);
+  document.getElementById("cartCount").textContent = totalQty;
+}
+
+/* ---------- Drawer ---------- */
+function openDrawer(){
+  drawerOpen = true;
+  document.getElementById("cartDrawer").classList.add("open");
+  document.getElementById("overlay").classList.add("open");
+  renderDrawerItems();
+  renderDrawerBranch();
+}
+function closeDrawer(){
+  drawerOpen = false;
+  document.getElementById("cartDrawer").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
+}
+function renderDrawerBranch(){
+  document.getElementById("drawerBranch").textContent = state.branch || "ยังไม่ได้เลือก";
+}
+function renderDrawerItems(){
+  const items = Object.keys(cart).filter(id => cart[id] > 0);
+  const container = document.getElementById("cartItems");
+  if (items.length === 0){
+    container.innerHTML = '<div class="empty-cart">ยังไม่ได้เลือกชิ้นส่วน<br>ปรับจำนวนในหน้ารายการเพื่อเพิ่มที่นี่</div>';
+    return;
+  }
+  container.innerHTML = items.map(id => {
+    const part = findPart(id);
+    if (!part) return "";
+    const qty = cart[id];
+    return '' +
+      '<div class="cart-item">' +
+        '<div>' +
+          '<div class="cart-item-name">' + escapeHtml(part.name) + "</div>" +
+          '<div class="cart-item-num mono">' + (part.num ? "#" + escapeHtml(part.num) + (part.tireNum ? "+" + escapeHtml(part.tireNum) : "") : "") + (part.color ? " · " + escapeHtml(part.color) : "") + "</div>" +
+        "</div>" +
+        '<div class="cart-item-qty">' +
+          '<button class="qty-btn" data-action="dec" data-id="' + id + '">–</button>' +
+          "<span>" + qty + "</span>" +
+          '<button class="qty-btn" data-action="inc" data-id="' + id + '">+</button>' +
+        "</div>" +
+      "</div>";
+  }).join("");
+}
+
+/* ---------- Toast ---------- */
+let toastTimer = null;
+function showToast(msg, type){
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "toast show " + (type || "");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = "toast " + (type || ""); }, 3200);
+}
+
+/* ---------- Backend sync ---------- */
+async function fetchTotals(){
+  if (!apiConfigured) return;
+  try {
+    const res = await fetch(API_URL, {method:"GET"});
+    const data = await res.json();
+    summaryRows = data.rows || [];
+    totalsMap = {};
+    summaryRows.forEach(r => { totalsMap[r.partId] = r.grandTotal; });
+    renderContent();
+  } catch (err){
+    console.error("fetchTotals failed", err);
+  }
+}
+
+async function submitOrder(){
+  if (submitting) return;
+  const branch = state.branch;
+  const orderer = document.getElementById("ordererName").value.trim();
+  const items = Object.keys(cart).filter(id => cart[id] > 0).map(id => {
+    const part = findPart(id);
+    return {category:part.category, partId:part.id, partName:part.name, partNumber:part.num, qty:cart[id]};
+  });
+
+  if (!branch){ showToast("กรุณาเลือกสาขาก่อนสั่งซื้อ", "error"); return; }
+  if (!orderer){ showToast("กรุณากรอกชื่อผู้สั่ง", "error"); return; }
+  if (items.length === 0){ showToast("ยังไม่ได้เลือกจำนวนชิ้นส่วน", "error"); return; }
+  if (!apiConfigured){ showToast("ยังไม่ได้ตั้งค่าการเชื่อมต่อ Google Sheet (API_URL)", "error"); return; }
+
+  submitting = true;
+  const btn = document.getElementById("submitOrder");
+  btn.disabled = true;
+  btn.textContent = "กำลังบันทึก...";
+
+  try {
+    const res = await fetch(API_URL, {
+      method:"POST",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({branch:branch, orderer:orderer, items:items})
+    });
+    const data = await res.json();
+    if (data.success){
+      showToast("บันทึกคำสั่งซื้อเรียบร้อยแล้ว", "success");
+      cart = {};
+      document.getElementById("ordererName").value = "";
+      updateCartBadge();
+      closeDrawer();
+      renderContent();
+      fetchTotals();
+    } else {
+      showToast("บันทึกไม่สำเร็จ: " + (data.error || "ไม่ทราบสาเหตุ"), "error");
+    }
+  } catch (err){
+    showToast("เชื่อมต่อไม่สำเร็จ ตรวจสอบ API_URL และอินเทอร์เน็ต", "error");
+  } finally {
+    submitting = false;
+    btn.disabled = false;
+    btn.textContent = "ยืนยันสั่งซื้อ";
+  }
+}
+
+init();
+</script>
+</body>
+</html>
