@@ -343,6 +343,7 @@ const CATALOG = {
     {id:"ev3-cable-25", name:"EV3 Cable 25cm", num:"11145", elementId:"6178438", color:"Black"},
     {id:"ev3-cable-35", name:"EV3 Cable 35cm", num:"11146", elementId:"6178439", color:"Black"},
     {id:"ev3-cable-50", name:"EV3 Cable 50cm", num:"11147", elementId:"6178448", color:"Black"},
+    {id:"ev3-usb", name:"EV3 USB Cable 2M", num:"10916", elementId:"6192039", color:"Black"},
     {id:"ev3-41897", name:"Tyre Low Wide Ø56 X 28", num:"41897", elementId:"6035364", color:"Black"},
     {id:"ev3-6629", name:"Technic Angular Beam 4X6", num:"6629", elementId:"4112282", color:"Black"},
     {id:"ev3-32523", name:"Technic 3M Beam", num:"32523", elementId:"4142822", color:"Black"},
@@ -399,6 +400,7 @@ const CATALOG = {
     {id:"ev3-10928", name:"Gear Wheel T=8 M=1", num:"10928", elementId:"6012451", color:"Dark Grey"},
     {id:"ev3-4185", name:"Wedge-Belt Wheel Ø24", num:"4185", elementId:"4587275", color:"Dark Grey"},
     {id:"ev3-56908", name:"Rim Wide 43.2X26 W 6 Hol.Ø 4.8", num:"56908", elementId:"4634091", color:"Grey"},
+    {id:"ev3-95656", name:"Rechargeable Battery", num:"95656", elementId:"6012820", color:"Grey"},
     {id:"ev3-32525", name:"Technic 11M Beam", num:"32525", elementId:"4156151", color:"Grey"},
     {id:"ev3-32271", name:"Technic Angular Beam 3X7", num:"32271", elementId:"4211624", color:"Grey"},
     {id:"ev3-32316", name:"Technic 5M Beam", num:"32316", elementId:"4211651", color:"Grey"},
@@ -428,26 +430,22 @@ const CATALOG = {
     {id:"ev3-3649", name:"Gear Wheel 40T", num:"3649", elementId:"4285634", color:"Grey"},
     {id:"ev3-94925", name:"Gear Wheel Z16", num:"94925", elementId:"4640536", color:"Grey"},
     {id:"ev3-99773", name:"Triangel", num:"99773", elementId:"6009019", color:"Grey"},
+    {id:"ev3-99948", name:"Steel Ball", num:"99948", elementId:"6079570", color:""},
     {id:"ev3-13670", name:"Crossaxle 3M With Knob", num:"13670", elementId:"6031821", color:"Sand Yellow"},
     {id:"ev3-32009", name:"Double Angular Beam 3X7 45°", num:"32009", elementId:"4495412", color:"White"},
     {id:"ev3-32348", name:"Technic Angular Beam 4X4", num:"32348", elementId:"4509912", color:"White"},
     {id:"ev3-64871", name:"Technic 15M Beam", num:"64871", elementId:"4542578", color:"White"},
     {id:"ev3-32526-white", name:"Technic Ang. Beam 3X5 90 Deg.", num:"32526", elementId:"4585040", color:"White"},
     {id:"ev3-41669", name:"Bion. Eye", num:"41669", elementId:"4173941", color:"White"},
+    {id:"ev3-battery-pack", name:"EV3 Rechargeable Battery", num:"95656", elementId:"6012820", color:"Grey"},
     {id:"ev3-wtc-01", name:"Wheel 11mm Pin (12mm) + Tire 21mm Offset Small Wide", num:"6014", tireNum:"6015", color:"Black"},
     {id:"ev3-wtc-02", name:"Wheel 18mm w/ Fake Bolts + Tire 30.4x14mm Offset", num:"55982", tireNum:"92402", color:"Black"},
     {id:"ev3-wtc-03", name:"Wheel 11mm Pin + Tire 14x6mm Smooth", num:"42610", tireNum:"50951", color:"Black"},
     {id:"ev3-wtc-04", name:"Wheel 11mm Pin + Tire 17.5x6mm Staggered", num:"42610", tireNum:"92409", color:"Black"},
-    {id:"ev3-wtc-05", name:"Wheel 30mm Axle + Tire 37x22mm ZR", num:"56145", tireNum:"55978", color:"Black"},
-    {id:"ev3-wtc-06", name:"Wheel Technic Racing Small 3-Pinhole + Tire 43.2mm", num:"41896", tireNum:"45928", color:"Black"},
-    {id:"ev3-wtc-07", name:"Wheel 30mm Axle + Tire 43.2x26mm Balloon", num:"56145", tireNum:"61481", color:"Black"},
     {id:"ev3-wtc-08", name:"Wheel 30mm Axle + Tire 56x26mm Balloon", num:"56145", tireNum:"55976", color:"Black"},
-    {id:"ev3-wtc-09", name:"Wheel Technic Racing Medium 6-Pinhole + Tire 107x44 Tractor", num:"15038", tireNum:"23798", color:"Black"},
-    {id:"ev3-wtc-10", name:"Wheel Technic Racing Medium 6-Pinhole + Tire 68.8x36mm ZR", num:"15038", tireNum:"44771", color:"Black"},
     {id:"ev3-wtc-11", name:"Wheel Technic Racing Large + Tire 81.6x44mm ZR Straight Tread", num:"23800", tireNum:"23799", color:"Black"},
     {id:"ev3-wtc-12", name:"Wheel 43.2mm Axle + Tire 62.4x20mm", num:"86652", tireNum:"32019", color:"Black"},
-    {id:"ev3-wtc-13", name:"Wheel 75mm Axle + Tire 94.2x22mm Motorcycle", num:"88517", tireNum:"88516", color:"Black"},
-    {id:"ev3-wtc-14", name:"Wheel 75mm Axle + Tire 100.6x22mm Motorcycle", num:"88517", tireNum:"11957", color:"Black"}
+    {id:"ev3-wtc-13", name:"Wheel 75mm Axle + Tire 94.2x22mm Motorcycle", num:"88517", tireNum:"88516", color:"Black"}
   ],
   wedo: [
     {id:"wedo-hub", name:"WeDo 2.0 Smarthub", num:"19071", elementId:"6257893", color:"White"},
@@ -514,9 +512,49 @@ const CATALOG = {
     {id:"wedo-chain", name:"Chain 16M", num:"39759", elementId:"6258887", color:"Grey"},
     {id:"wedo-gear-t8", name:"Gear Wheel T=8 M=1", num:"10928", elementId:"6012451", color:"Grey"},
     {id:"wedo-axle-4-end", name:"Cross Axle 4M w/ End Stop", num:"87083", elementId:"6083620", color:"Grey"},
-    {id:"wedo-gear-z24", name:"Gear Wheel Z24", num:"24505", elementId:"6133119", color:"Grey"},
     {id:"wedo-brick-2x4-azur", name:"Brick 2x4", num:"3001", elementId:"4625629", color:"Medium Azur"},
-    {id:"wedo-tile-1x2-azur", name:"Flat Tile 1x2", num:"3069", elementId:"4649741", color:"Medium Azur"}
+    {id:"wedo-tile-1x2-azur", name:"Flat Tile 1x2", num:"3069", elementId:"4649741", color:"Medium Azur"},
+
+    {id:"wedo-30104", name:"Chain 21 Links (16-17L)", num:"30104", elementId:"", color:"Grey"},
+    {id:"wedo-3648", name:"Technic Gear 24 Tooth with 1 Axle Hole", num:"3648", elementId:"", color:"Grey"},
+    {id:"wedo-2458", name:"Brick Modified 1x2 with Pin", num:"2458", elementId:"", color:"Light Grey"},
+    {id:"wedo-3176", name:"Plate Modified 2x3 with Hole", num:"3176", elementId:"", color:"Light Grey"},
+    {id:"wedo-64799", name:"Plate Modified 4x4 with 2x2 Open Center", num:"64799", elementId:"", color:"Light Grey"},
+    {id:"wedo-60481", name:"Slope 65 2x1x2", num:"60481", elementId:"", color:"Light Grey"},
+    {id:"wedo-3713", name:"Technic Bush", num:"3713", elementId:"", color:"Light Grey"},
+    {id:"wedo-4519", name:"Technic Axle 3L", num:"4519", elementId:"", color:"Light Grey"},
+    {id:"wedo-44294", name:"Technic Axle 7L", num:"44294", elementId:"", color:"Light Grey"},
+    {id:"wedo-6538c", name:"Technic Axle Connector 2L (Smooth with x Hole)", num:"6538c", elementId:"", color:"Light Grey"},
+    {id:"wedo-4716", name:"Technic Gear Worm Screw, Long", num:"4716", elementId:"", color:"Light Grey"},
+    {id:"wedo-4162", name:"Tile 1 x 8", num:"4162", elementId:"", color:"Light Grey"},
+    {id:"wedo-3004", name:"Brick 1 x 2", num:"3004", elementId:"", color:"Medium Azur"},
+    {id:"wedo-3010", name:"Brick 1 x 4", num:"3010", elementId:"", color:"Medium Azur"},
+    {id:"wedo-3003", name:"Brick 2 x 2", num:"3003", elementId:"", color:"Medium Azur"},
+    {id:"wedo-60474", name:"Plate, Round 4x4 with Hole", num:"60474", elementId:"", color:"Medium Azur"},
+    {id:"wedo-93273", name:"Slope Curved 4x1x2/3 Double", num:"93273", elementId:"", color:"Medium Azur"},
+    {id:"wedo-32016", name:"Technic Axle and Pin Connector Angled #3 - 157.5 degrees", num:"32016", elementId:"", color:"Medium Azur"},
+    {id:"wedo-96874", name:"Brick and Axle Separator", num:"96874", elementId:"", color:"Orange"},
+    {id:"wedo-6588", name:"Technic Gearbox 2x4x3 1/3", num:"6588", elementId:"", color:"Trans-Clear"},
+    {id:"wedo-3062", name:"Brick Round 1x1", num:"3062", elementId:"", color:"Trans-Green"},
+    {id:"wedo-3941", name:"Brick Round 2x2 with Axle Hole", num:"3941", elementId:"", color:"Trans-Light Blue"},
+    {id:"wedo-42022", name:"Slope Curved 6x1", num:"42022", elementId:"", color:"Trans-Light Blue"},
+    {id:"wedo-4185", name:"Technic Wedge Belt Wheel (Pulley)", num:"4185", elementId:"", color:"Trans-Light Blue"},
+    {id:"wedo-92013", name:"Technic Brick Modified 2x2 with Ball Socket and Axle Hole", num:"92013", elementId:"", color:"Trans-Light Blue"},
+    {id:"wedo-3062-transr", name:"Brick Round 1x1", num:"3062", elementId:"", color:"Trans-Red"},
+    {id:"wedo-3062-transy", name:"Brick Round 1x1", num:"3062", elementId:"", color:"Trans-Yellow"},
+    {id:"wedo-4592c02", name:"Antenna Small Base with Black Lever", num:"4592c02", elementId:"", color:"White"},
+    {id:"wedo-44728", name:"Bracket 1x2 - 2x2", num:"44728", elementId:"", color:"White"},
+    {id:"wedo-87087", name:"Brick Modified 1x1 with Stud on Side", num:"87087", elementId:"", color:"White"},
+    {id:"wedo-3023", name:"Plate 1 x 2", num:"3023", elementId:"", color:"White"},
+    {id:"wedo-3710", name:"Platfe 1 x 4", num:"3710", elementId:"", color:"White"},
+    {id:"wedo-3666", name:"Plate 1 x 6", num:"3666", elementId:"", color:"White"},
+    {id:"wedo-60479", name:"Plate 1 x 12", num:"60479", elementId:"", color:"White"},
+    {id:"wedo-32013", name:"Technic Axle and Pin Connector Angled #1", num:"32013", elementId:"", color:"White"},
+    {id:"wedo-3743", name:"Technic Gear Rack 1x4", num:"3743", elementId:"", color:"White"},
+    {id:"wedo-98138pb007", name:"Tile Round 1x1 with Black Eye Pattern", num:"98138pb007", elementId:"", color:"White"},
+    {id:"wedo-18674", name:"Tile Round 2x2 with Open Stud", num:"18674", elementId:"", color:"White"},
+    {id:"wedo-55982", name:"Wheel 18mm D. x 14mm with Axle Hole, Fake Bolts", num:"55982", elementId:"", color:"White"},
+
   ],
   vexiq: [
     {id:"vex-brain", name:"IQ Robot Brain (2nd Gen)", num:"228-6480", img:"electronics-robot-brain", color:""},
@@ -637,6 +675,18 @@ function findPart(id){
 /* หลายแหล่งรูปเรียงลำดับความน่าเชื่อถือ — เช็ครูปในเครื่อง (โฟลเดอร์ images/ ข้าง ๆ ไฟล์นี้ ได้จาก
    การรัน download_images.py) ก่อนเป็นอันดับแรก ถ้าไม่มีค่อยลองโหลดจากอินเทอร์เน็ตไล่ทีละแหล่ง
    ก่อนจะ fallback เป็นชื่อชิ้นส่วนแบบข้อความในที่สุด */
+/* รหัสสี BrickLink จริง (จาก v2.bricklink.com/catalog/color-guide) — ใช้แทน "0" (Not Applicable)
+   เพราะโค้ด 0 แทบไม่มีรูปจริงสำหรับชิ้นส่วนสีปกติ ต้องระบุสีให้ตรงถึงจะได้รูป */
+const BL_COLOR_ID = {
+  "Black": 11, "White": 1, "Grey": 86, "Dark Grey": 85, "Light Grey": 86,
+  "Blue": 7, "Red": 5, "Yellow": 3, "Green": 36, "Tan": 2, "Sand Yellow": 69,
+  "Yellowish Green": 34, "Medium Azur": 156, "Orange": 4,
+  "Trans-Clear": 12, "Trans-Green": 20, "Trans-Light Blue": 15,
+  "Trans-Red": 17, "Trans-Yellow": 19
+};
+function blColorId(color){
+  return BL_COLOR_ID[color] !== undefined ? BL_COLOR_ID[color] : 0;
+}
 function imgSourcesFor(part){
   const sources = [];
   if (part.elementId || part.num || part.img){
@@ -652,10 +702,14 @@ function imgSourcesFor(part){
     sources.push("https://images.brickset.com/parts/" + part.elementId + ".jpg");
   }
   if (part.num && !part.img){
-    sources.push("https://img.bricklink.com/ItemImage/PN/0/" + part.num + ".png");
+    const cid = blColorId(part.color);
+    sources.push("https://img.bricklink.com/ItemImage/PN/" + cid + "/" + part.num + ".png");
+    if (cid !== 0){
+      sources.push("https://img.bricklink.com/ItemImage/PN/0/" + part.num + ".png");
+    }
   }
   if (part.tireNum){
-    sources.push("https://img.bricklink.com/ItemImage/PN/0/" + part.tireNum + ".png");
+    sources.push("https://img.bricklink.com/ItemImage/PN/" + blColorId(part.color) + "/" + part.tireNum + ".png");
   }
   return sources;
 }
