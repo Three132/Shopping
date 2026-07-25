@@ -71,13 +71,6 @@
       "color": "Black"
     },
     {
-      "id": "ev3-usb",
-      "name": "EV3 USB Cable 2M",
-      "num": "10916",
-      "elementId": "6192039",
-      "color": "Black"
-    },
-    {
       "id": "ev3-axle-4",
       "name": "Cross Axle 4M",
       "num": "3705",
