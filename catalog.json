@@ -71,382 +71,669 @@
       "color": "Black"
     },
     {
-      "id": "ev3-axle-4",
-      "name": "Cross Axle 4M",
-      "num": "3705",
-      "elementId": "370526",
+      "id": "ev3-usb",
+      "name": "EV3 USB Cable 2M",
+      "num": "10916",
+      "elementId": "6192039",
       "color": "Black"
     },
     {
-      "id": "ev3-axle-5",
-      "name": "Cross Axle 5M",
-      "num": "32073",
-      "elementId": "4211639",
-      "color": "Grey"
-    },
-    {
-      "id": "ev3-axle-6",
-      "name": "Cross Axle 6M",
-      "num": "3706",
-      "elementId": "370626",
+      "id": "ev3-41897",
+      "name": "Tyre Low Wide Ø56 X 28",
+      "num": "41897",
+      "elementId": "6035364",
       "color": "Black"
     },
     {
-      "id": "ev3-axle-7",
-      "name": "Cross Axle 7M",
-      "num": "44294",
-      "elementId": "4211805",
-      "color": "Grey"
-    },
-    {
-      "id": "ev3-axle-8",
-      "name": "Cross Axle 8M",
-      "num": "3707",
-      "elementId": "370726",
+      "id": "ev3-6629",
+      "name": "Technic Angular Beam 4X6",
+      "num": "6629",
+      "elementId": "4112282",
       "color": "Black"
     },
     {
-      "id": "ev3-axle-8-end",
-      "name": "Cross Axle 8M w/ End Stop",
-      "num": "55013",
-      "elementId": "4499858",
-      "color": "Dark Grey"
-    },
-    {
-      "id": "ev3-axle-10",
-      "name": "Cross Axle 10M",
-      "num": "3737",
-      "elementId": "373726",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-axle-12",
-      "name": "Cross Axle 12M",
-      "num": "3708",
-      "elementId": "370826",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-axle-4-end",
-      "name": "Cross Axle 4M w/ End Stop",
-      "num": "87083",
-      "elementId": "6083620",
-      "color": "Dark Grey"
-    },
-    {
-      "id": "ev3-axle-ext-2",
-      "name": "Cross Axle Extension 2M",
-      "num": "59443",
-      "elementId": "4513174",
-      "color": "Red"
-    },
-    {
-      "id": "ev3-axle-groove-2",
-      "name": "Cross Axle 2M w/ Groove",
-      "num": "32062",
-      "elementId": "4142865",
-      "color": "Red"
-    },
-    {
-      "id": "ev3-conn-friction",
-      "name": "Connector Peg w/ Friction",
-      "num": "2780",
-      "elementId": "4121715",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-conn-friction-3m",
-      "name": "Connector Peg w/ Friction 3M",
-      "num": "6558",
-      "elementId": "4514553",
-      "color": "Blue"
-    },
-    {
-      "id": "ev3-conn-3m",
-      "name": "3M Connector Peg",
-      "num": "39888",
-      "elementId": "6321305",
-      "color": "Tan"
-    },
-    {
-      "id": "ev3-conn-cross",
-      "name": "Connector Peg/Cross Axle",
-      "num": "6562",
-      "elementId": "4666579",
-      "color": "Tan"
-    },
-    {
-      "id": "ev3-bush-friction",
-      "name": "Conn. Bush w/ Friction/Cross Axle",
-      "num": "43093",
-      "elementId": "4206482",
-      "color": "Blue"
-    },
-    {
-      "id": "ev3-bush-half",
-      "name": "1/2 Bush",
-      "num": "42136",
-      "elementId": "6271167",
-      "color": "Yellow"
-    },
-    {
-      "id": "ev3-snap-2m",
-      "name": "2M Fric. Snap w/ Cross Hole",
-      "num": "32054",
-      "elementId": "4140806",
-      "color": "Red"
-    },
-    {
-      "id": "ev3-beam-3m",
+      "id": "ev3-32523",
       "name": "Technic 3M Beam",
       "num": "32523",
       "elementId": "4142822",
       "color": "Black"
     },
     {
-      "id": "ev3-beam-5m",
-      "name": "Technic 5M Beam",
-      "num": "32316",
-      "elementId": "4211651",
-      "color": "Grey"
-    },
-    {
-      "id": "ev3-beam-ang-3x5",
-      "name": "Technic Ang. Beam 3x5 90°",
-      "num": "32526",
-      "elementId": "4211713",
-      "color": "Grey"
-    },
-    {
-      "id": "ev3-beam-ang-4x2",
-      "name": "Technic Ang. Beam 4x2 90°",
-      "num": "42137",
-      "elementId": "6271827",
-      "color": "Red"
-    },
-    {
-      "id": "ev3-beam-ang-4x6",
-      "name": "Technic Angular Beam 4x6",
-      "num": "42149",
-      "elementId": "6279881",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-beam-1x2-cross",
-      "name": "Beam 1x2 w/ Cross and Hole",
-      "num": "40147",
-      "elementId": "6265091",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-tbeam-3x3",
-      "name": "T-Beam 3x3 w/ Hole",
+      "id": "ev3-60484",
+      "name": "T-Beam 3X3 W/Hole Ø4.8",
       "num": "60484",
       "elementId": "4552347",
       "color": "Black"
     },
     {
-      "id": "ev3-crossblock-double",
-      "name": "Double Cross Block",
-      "num": "42142",
-      "elementId": "6276951",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-crossblock-3m",
-      "name": "Cross Block 3M",
-      "num": "42796",
-      "elementId": "6273715",
-      "color": "Grey"
-    },
-    {
-      "id": "ev3-crossblock-2x1",
-      "name": "Technic Cross Block 2x1",
-      "num": "42163",
-      "elementId": "6280394",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-crossblock-fork",
-      "name": "Technic Cross Block/Fork 2x2",
-      "num": "41678",
-      "elementId": "4162857",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-angle-0",
-      "name": "Angle Element 0° [1]",
-      "num": "42127",
-      "elementId": "6284699",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-angle-90",
-      "name": "Angle Element 90° [6]",
-      "num": "42155",
-      "elementId": "6268905",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-angle-180",
-      "name": "Angle Element 180° [2]",
-      "num": "42134",
-      "elementId": "6271869",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-panel-l-5x11",
-      "name": "Left Panel 5x11",
+      "id": "ev3-64392",
+      "name": "Left Panel 5X11",
       "num": "64392",
       "elementId": "4541326",
       "color": "Black"
     },
     {
-      "id": "ev3-panel-r-5x11",
-      "name": "Right Panel 5x11",
+      "id": "ev3-64682",
+      "name": "Right Panel 5X11",
       "num": "64682",
       "elementId": "4543490",
       "color": "Black"
     },
     {
-      "id": "ev3-panel-l-3x5",
-      "name": "Left Panel 3x5",
-      "num": "87080",
-      "elementId": "4566251",
-      "color": "Black"
-    },
-    {
-      "id": "ev3-panel-r-3x5",
-      "name": "Right Panel 3x5",
+      "id": "ev3-87086",
+      "name": "Right Panel 3X5",
       "num": "87086",
       "elementId": "4566249",
       "color": "Black"
     },
     {
-      "id": "ev3-knuckle",
-      "name": "2x1x3 Steering Knuckle Arm",
-      "num": "61408",
-      "elementId": "6313520",
+      "id": "ev3-87080",
+      "name": "Left Panel 3X5",
+      "num": "87080",
+      "elementId": "4566251",
       "color": "Black"
     },
     {
-      "id": "ev3-lever",
-      "name": "Lever 1x4 without Notch",
-      "num": "63782",
-      "elementId": "6327548",
+      "id": "ev3-32184",
+      "name": "Double Cross Block",
+      "num": "32184",
+      "elementId": "4121667",
       "color": "Black"
     },
     {
-      "id": "ev3-hto-vbeam",
-      "name": "HTO V Beam 90°",
-      "num": "44809",
-      "elementId": "6008527",
-      "color": "Red"
+      "id": "ev3-32291",
+      "name": "Technic Cross Block 2X1",
+      "num": "32291",
+      "elementId": "4140430",
+      "color": "Black"
     },
     {
-      "id": "ev3-damper",
+      "id": "ev3-74695",
+      "name": "Beam 1X2 W/Cross And Hole",
+      "num": "74695",
+      "elementId": "6006140",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-3705",
+      "name": "Cross Axle 4M",
+      "num": "3705",
+      "elementId": "370526",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-3706",
+      "name": "Cross Axle 6M",
+      "num": "3706",
+      "elementId": "370626",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-3707",
+      "name": "Cross Axle 8M",
+      "num": "3707",
+      "elementId": "370726",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-3708",
+      "name": "Cross Axle 12M",
+      "num": "3708",
+      "elementId": "370826",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-3737",
+      "name": "Cross Axle 10M",
+      "num": "3737",
+      "elementId": "373726",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-32013",
+      "name": "Angle Element 0° [1]",
+      "num": "32013",
+      "elementId": "4107085",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-32014",
+      "name": "Angle Element 90° [6]",
+      "num": "32014",
+      "elementId": "4107767",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-32034",
+      "name": "Angle Element 180° [2]",
+      "num": "32034",
+      "elementId": "4107783",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-2780",
+      "name": "Connector Peg W. Friction",
+      "num": "2780",
+      "elementId": "4121715",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-45590",
       "name": "Damper 2M",
       "num": "45590",
       "elementId": "4198367",
       "color": "Black"
     },
     {
-      "id": "ev3-powerjoint",
-      "name": "Power Joint",
-      "num": "65453",
-      "elementId": "6296844",
-      "color": "Grey"
+      "id": "ev3-99010",
+      "name": "Upper Part For Turntable Z28",
+      "num": "99010",
+      "elementId": "4652236",
+      "color": "Black"
     },
     {
-      "id": "ev3-wheel-z12-1m",
+      "id": "ev3-32270",
       "name": "Double Conical Wheel Z12 1M",
       "num": "32270",
       "elementId": "4177431",
       "color": "Black"
     },
     {
-      "id": "ev3-wheel-z20-1m",
-      "name": "Double Conical Wheel Z20 1M",
-      "num": "18575",
-      "elementId": "6346535",
+      "id": "ev3-32072",
+      "name": "Technic Angular Wheel",
+      "num": "32072",
+      "elementId": "4248204",
       "color": "Black"
     },
     {
-      "id": "ev3-wheel-z36",
+      "id": "ev3-32498",
       "name": "Double Conical Wheel Z36",
       "num": "32498",
       "elementId": "4255563",
       "color": "Black"
     },
     {
-      "id": "ev3-wheel-z12-tan",
-      "name": "Conical Wheel Z12",
-      "num": "6589",
-      "elementId": "4565452",
-      "color": "Tan"
-    },
-    {
-      "id": "ev3-wheel-angular",
-      "name": "Technic Angular Wheel",
-      "num": "49135",
-      "elementId": "6284188",
+      "id": "ev3-18575",
+      "name": "Double Conical Wheel Z20 1M",
+      "num": "18575",
+      "elementId": "6093977",
       "color": "Black"
     },
     {
-      "id": "ev3-wheel-wedge",
-      "name": "Wedge-Belt Wheel Ø24",
-      "num": "49750",
-      "elementId": "6321744",
-      "color": "Grey"
+      "id": "ev3-32269",
+      "name": "Double bevel gear 20-tooth",
+      "num": "32269",
+      "elementId": "4177430",
+      "color": "Black"
     },
     {
-      "id": "ev3-sprocket",
+      "id": "ev3-32449",
+      "name": "Lever 1X4 Without Notch",
+      "num": "32449",
+      "elementId": "4142236",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-41678",
+      "name": "Technic Cross Block/Fork 2X2",
+      "num": "41678",
+      "elementId": "4162857",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-33299",
+      "name": "2X1X3 Steering Knuckle Arm",
+      "num": "33299",
+      "elementId": "4563044",
+      "color": "Black"
+    },
+    {
+      "id": "ev3-57519",
       "name": "Sprocket Ø40.7",
       "num": "57519",
       "elementId": "4582792",
       "color": "Black"
     },
     {
-      "id": "ev3-gear-t8",
-      "name": "Gear Wheel T=8 M=1",
-      "num": "10928",
-      "elementId": "6012451",
-      "color": "Grey"
+      "id": "ev3-88323",
+      "name": "Track Element 5X1.5",
+      "num": "88323",
+      "elementId": "6014648",
+      "color": "Black"
     },
     {
-      "id": "ev3-gear-z24",
-      "name": "Gear Wheel Z24",
-      "num": "24505",
-      "elementId": "6133119",
-      "color": "Grey"
-    },
-    {
-      "id": "ev3-tyre-wedge",
-      "name": "Tyre for Wedge-Belt Wheel",
+      "id": "ev3-2815",
+      "name": "Tyre For Wedge-Belt Wheel",
       "num": "2815",
       "elementId": "6028041",
       "color": "Black"
     },
     {
-      "id": "ev3-tyre-low",
-      "name": "Tyre Low Wide Ø56x28",
-      "num": "41897",
-      "elementId": "6035364",
-      "color": "Black"
+      "id": "ev3-32556",
+      "name": "3M Connector Peg",
+      "num": "32556",
+      "elementId": "4514554",
+      "color": "Tan"
     },
     {
-      "id": "ev3-track",
-      "name": "Track Element 5x1.5",
-      "num": "42479",
-      "elementId": "6325504",
-      "color": "Black"
+      "id": "ev3-6562",
+      "name": "Connector Peg/Cross Axle",
+      "num": "6562",
+      "elementId": "4666579",
+      "color": "Tan"
     },
     {
-      "id": "ev3-turntable",
-      "name": "Upper Part for Turntable Z28",
-      "num": "39892",
-      "elementId": "6326620",
-      "color": "Black"
+      "id": "ev3-6589",
+      "name": "Conical Wheel Z12",
+      "num": "6589",
+      "elementId": "4565452",
+      "color": "Tan"
+    },
+    {
+      "id": "ev3-32523-brightblue",
+      "name": "Technic 3M Beam",
+      "num": "32523",
+      "elementId": "4509376",
+      "color": "Blue"
+    },
+    {
+      "id": "ev3-43093",
+      "name": "Conn.Bush W.Fric./Cross Axle",
+      "num": "43093",
+      "elementId": "4206482",
+      "color": "Blue"
+    },
+    {
+      "id": "ev3-6558",
+      "name": "Connector Peg W. Friction 3M",
+      "num": "6558",
+      "elementId": "4514553",
+      "color": "Blue"
+    },
+    {
+      "id": "ev3-32140",
+      "name": "Technic Ang. Beam 4X2 90 Deg",
+      "num": "32140",
+      "elementId": "4141270",
+      "color": "Red"
+    },
+    {
+      "id": "ev3-32523-brightred",
+      "name": "Technic 3M Beam",
+      "num": "32523",
+      "elementId": "4153718",
+      "color": "Red"
+    },
+    {
+      "id": "ev3-44809",
+      "name": "Hto V Beam 90 Deg",
+      "num": "44809",
+      "elementId": "6008527",
+      "color": "Red"
+    },
+    {
+      "id": "ev3-32054",
+      "name": "2M Fric. Snap W/Cross Hole",
+      "num": "32054",
+      "elementId": "4140806",
+      "color": "Red"
+    },
+    {
+      "id": "ev3-32062",
+      "name": "2M Cross Axle W. Groove",
+      "num": "32062",
+      "elementId": "4142865",
+      "color": "Red"
+    },
+    {
+      "id": "ev3-59443",
+      "name": "Cross Axle Extension 2M",
+      "num": "59443",
+      "elementId": "4513174",
+      "color": "Red"
+    },
+    {
+      "id": "ev3-32523-brightyellow",
+      "name": "Technic 3M Beam",
+      "num": "32523",
+      "elementId": "4153707",
+      "color": "Yellow"
+    },
+    {
+      "id": "ev3-32123",
+      "name": "1/2 Bush",
+      "num": "32123",
+      "elementId": "4239601",
+      "color": "Yellow"
+    },
+    {
+      "id": "ev3-32523-darkgreen",
+      "name": "Technic 3M Beam",
+      "num": "32523",
+      "elementId": "6007973",
+      "color": "Green"
+    },
+    {
+      "id": "ev3-42003",
+      "name": "Cross Block 3M",
+      "num": "42003",
+      "elementId": "4210857",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-92911",
+      "name": "Power Joint",
+      "num": "92911",
+      "elementId": "4610380",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-55013",
+      "name": "Cross Axle 8M With End Stop",
+      "num": "55013",
+      "elementId": "4499858",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-87083",
+      "name": "Cross Axle 4M With End Stop",
+      "num": "87083",
+      "elementId": "6083620",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-3648",
+      "name": "Gear Wheel Z24",
+      "num": "3648",
+      "elementId": "4514558",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-10928",
+      "name": "Gear Wheel T=8 M=1",
+      "num": "10928",
+      "elementId": "6012451",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-4185",
+      "name": "Wedge-Belt Wheel Ø24",
+      "num": "4185",
+      "elementId": "4587275",
+      "color": "Dark Grey"
+    },
+    {
+      "id": "ev3-56908",
+      "name": "Rim Wide 43.2X26 W 6 Hol.Ø 4.8",
+      "num": "56908",
+      "elementId": "4634091",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-95656",
+      "name": "Rechargeable Battery",
+      "num": "95656",
+      "elementId": "6012820",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-32525",
+      "name": "Technic 11M Beam",
+      "num": "32525",
+      "elementId": "4156151",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-32271",
+      "name": "Technic Angular Beam 3X7",
+      "num": "32271",
+      "elementId": "4211624",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-32316",
+      "name": "Technic 5M Beam",
+      "num": "32316",
+      "elementId": "4211651",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-32526",
+      "name": "Technic Ang. Beam 3X5 90 Deg.",
+      "num": "32526",
+      "elementId": "4211713",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-40490",
+      "name": "Technic 9M Beam",
+      "num": "40490",
+      "elementId": "4211866",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-32524",
+      "name": "Technic 7M Beam",
+      "num": "32524",
+      "elementId": "4495930",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-41239",
+      "name": "Technic 13M Beam",
+      "num": "41239",
+      "elementId": "4522934",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-64290",
+      "name": "Technic 11M Beam",
+      "num": "64290",
+      "elementId": "4611705",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-64289",
+      "name": "Technic 9M Beam",
+      "num": "64289",
+      "elementId": "6102449",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-6536",
+      "name": "Cross Block 90°",
+      "num": "6536",
+      "elementId": "4211775",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-48989",
+      "name": "Beam 3 M. W/4 Snaps",
+      "num": "48989",
+      "elementId": "4225033",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-55615",
+      "name": "Angular Beam 90Deg W.4 Snaps",
+      "num": "55615",
+      "elementId": "4296059",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-63869",
+      "name": "Cross Block 3X2",
+      "num": "63869",
+      "elementId": "4538007",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-64179",
+      "name": "Beam Frame 5X7 Ø 4.85",
+      "num": "64179",
+      "elementId": "4539880",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-64178",
+      "name": "Beam R. Frame 5X11 Ø4.85",
+      "num": "64178",
+      "elementId": "4540797",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-87082",
+      "name": "Double Bush 3M Ø4.9",
+      "num": "87082",
+      "elementId": "4560175",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-6590",
+      "name": "Bush For Cross Axle",
+      "num": "6590",
+      "elementId": "4211622",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-32073",
+      "name": "Cross Axle 5M",
+      "num": "32073",
+      "elementId": "4211639",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-44294",
+      "name": "Cross Axle 7M",
+      "num": "44294",
+      "elementId": "4211805",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-3673",
+      "name": "Connector Peg",
+      "num": "3673",
+      "elementId": "4211807",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-4519",
+      "name": "Cross Axle 3M",
+      "num": "4519",
+      "elementId": "4211815",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-57585",
+      "name": "3-Branch Cross Axle W/Cross H.",
+      "num": "57585",
+      "elementId": "4502595",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-62462",
+      "name": "Tube W/Double Ø4.85",
+      "num": "62462",
+      "elementId": "4526985",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-60485",
+      "name": "Cross Axle 9M",
+      "num": "60485",
+      "elementId": "4535768",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-99009",
+      "name": "Lower Part For Turntable Z28",
+      "num": "99009",
+      "elementId": "4652235",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-4716",
+      "name": "Worm",
+      "num": "4716",
+      "elementId": "4211510",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-3649",
+      "name": "Gear Wheel 40T",
+      "num": "3649",
+      "elementId": "4285634",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-94925",
+      "name": "Gear Wheel Z16",
+      "num": "94925",
+      "elementId": "4640536",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-99773",
+      "name": "Triangel",
+      "num": "99773",
+      "elementId": "6009019",
+      "color": "Grey"
+    },
+    {
+      "id": "ev3-99948",
+      "name": "Steel Ball",
+      "num": "99948",
+      "elementId": "6079570",
+      "color": ""
+    },
+    {
+      "id": "ev3-13670",
+      "name": "Crossaxle 3M With Knob",
+      "num": "13670",
+      "elementId": "6031821",
+      "color": "Sand Yellow"
+    },
+    {
+      "id": "ev3-32009",
+      "name": "Double Angular Beam 3X7 45°",
+      "num": "32009",
+      "elementId": "4495412",
+      "color": "White"
+    },
+    {
+      "id": "ev3-32348",
+      "name": "Technic Angular Beam 4X4",
+      "num": "32348",
+      "elementId": "4509912",
+      "color": "White"
+    },
+    {
+      "id": "ev3-64871",
+      "name": "Technic 15M Beam",
+      "num": "64871",
+      "elementId": "4542578",
+      "color": "White"
+    },
+    {
+      "id": "ev3-32526-white",
+      "name": "Technic Ang. Beam 3X5 90 Deg.",
+      "num": "32526",
+      "elementId": "4585040",
+      "color": "White"
+    },
+    {
+      "id": "ev3-41669",
+      "name": "Bion. Eye",
+      "num": "41669",
+      "elementId": "4173941",
+      "color": "White"
+    },
+    {
+      "id": "ev3-battery-pack",
+      "name": "EV3 Rechargeable Battery",
+      "num": "95656",
+      "elementId": "6012820",
+      "color": "Grey"
     },
     {
       "id": "ev3-wtc-01",
@@ -1016,6 +1303,342 @@
       "num": "3069",
       "elementId": "4649741",
       "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-32269",
+      "name": "Technic Gear 20 Tooth Double Bevel",
+      "num": "32269",
+      "elementId": "",
+      "color": "Black"
+    },
+    {
+      "id": "wedo-15279",
+      "name": "Plant Grass Stem",
+      "num": "15279",
+      "elementId": "",
+      "color": "Green"
+    },
+    {
+      "id": "wedo-62462",
+      "name": "Technic Pin Connector Round 2L with Slot",
+      "num": "62462",
+      "elementId": "",
+      "color": "Green"
+    },
+    {
+      "id": "wedo-30104",
+      "name": "Chain 21 Links (16-17L)",
+      "num": "30104",
+      "elementId": "",
+      "color": "Grey"
+    },
+    {
+      "id": "wedo-3648",
+      "name": "Technic Gear 24 Tooth with 1 Axle Hole",
+      "num": "3648",
+      "elementId": "",
+      "color": "Grey"
+    },
+    {
+      "id": "wedo-2458",
+      "name": "Brick Modified 1x2 with Pin",
+      "num": "2458",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-3176",
+      "name": "Plate Modified 2x3 with Hole",
+      "num": "3176",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-64799",
+      "name": "Plate Modified 4x4 with 2x2 Open Center",
+      "num": "64799",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-60481",
+      "name": "Slope 65 2x1x2",
+      "num": "60481",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-3713",
+      "name": "Technic Bush",
+      "num": "3713",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-4519",
+      "name": "Technic Axle 3L",
+      "num": "4519",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-44294",
+      "name": "Technic Axle 7L",
+      "num": "44294",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-6538c",
+      "name": "Technic Axle Connector 2L (Smooth with x Hole)",
+      "num": "6538c",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-4716",
+      "name": "Technic Gear Worm Screw, Long",
+      "num": "4716",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-4162",
+      "name": "Tile 1 x 8",
+      "num": "4162",
+      "elementId": "",
+      "color": "Light Grey"
+    },
+    {
+      "id": "wedo-32192",
+      "name": "Technic Axle and Pin Connector Angled #4 - 135 degrees",
+      "num": "32192",
+      "elementId": "",
+      "color": "Yellowish Green"
+    },
+    {
+      "id": "wedo-3004",
+      "name": "Brick 1 x 2",
+      "num": "3004",
+      "elementId": "",
+      "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-3010",
+      "name": "Brick 1 x 4",
+      "num": "3010",
+      "elementId": "",
+      "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-3003",
+      "name": "Brick 2 x 2",
+      "num": "3003",
+      "elementId": "",
+      "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-60474",
+      "name": "Plate, Round 4x4 with Hole",
+      "num": "60474",
+      "elementId": "",
+      "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-93273",
+      "name": "Slope Curved 4x1x2/3 Double",
+      "num": "93273",
+      "elementId": "",
+      "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-32016",
+      "name": "Technic Axle and Pin Connector Angled #3 - 157.5 degrees",
+      "num": "32016",
+      "elementId": "",
+      "color": "Medium Azur"
+    },
+    {
+      "id": "wedo-96874",
+      "name": "Brick and Axle Separator",
+      "num": "96874",
+      "elementId": "",
+      "color": "Orange"
+    },
+    {
+      "id": "wedo-x37",
+      "name": "Rubber Belt Medium (Round) - Approx 3x3",
+      "num": "x37",
+      "elementId": "",
+      "color": "Red"
+    },
+    {
+      "id": "wedo-3749",
+      "name": "Technic Axle 1L with Pin without Friction Ridges",
+      "num": "3749",
+      "elementId": "",
+      "color": "Tan"
+    },
+    {
+      "id": "wedo-6588",
+      "name": "Technic Gearbox 2x4x3 1/3",
+      "num": "6588",
+      "elementId": "",
+      "color": "Trans-Clear"
+    },
+    {
+      "id": "wedo-3062",
+      "name": "Brick Round 1x1",
+      "num": "3062",
+      "elementId": "",
+      "color": "Trans-Green"
+    },
+    {
+      "id": "wedo-3941",
+      "name": "Brick Round 2x2 with Axle Hole",
+      "num": "3941",
+      "elementId": "",
+      "color": "Trans-Light Blue"
+    },
+    {
+      "id": "wedo-42022",
+      "name": "Slope Curved 6x1",
+      "num": "42022",
+      "elementId": "",
+      "color": "Trans-Light Blue"
+    },
+    {
+      "id": "wedo-4185",
+      "name": "Technic Wedge Belt Wheel (Pulley)",
+      "num": "4185",
+      "elementId": "",
+      "color": "Trans-Light Blue"
+    },
+    {
+      "id": "wedo-92013",
+      "name": "Technic Brick Modified 2x2 with Ball Socket and Axle Hole",
+      "num": "92013",
+      "elementId": "",
+      "color": "Trans-Light Blue"
+    },
+    {
+      "id": "wedo-3062-transr",
+      "name": "Brick Round 1x1",
+      "num": "3062",
+      "elementId": "",
+      "color": "Trans-Red"
+    },
+    {
+      "id": "wedo-3062-transy",
+      "name": "Brick Round 1x1",
+      "num": "3062",
+      "elementId": "",
+      "color": "Trans-Yellow"
+    },
+    {
+      "id": "wedo-4592c02",
+      "name": "Antenna Small Base with Black Lever",
+      "num": "4592c02",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-44728",
+      "name": "Bracket 1x2 - 2x2",
+      "num": "44728",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-87087",
+      "name": "Brick Modified 1x1 with Stud on Side",
+      "num": "87087",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-3023",
+      "name": "Plate 1 x 2",
+      "num": "3023",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-3710",
+      "name": "Plate 1 x 4",
+      "num": "3710",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-3666",
+      "name": "Plate 1 x 6",
+      "num": "3666",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-60479",
+      "name": "Plate 1 x 12",
+      "num": "60479",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-32013",
+      "name": "Technic Axle and Pin Connector Angled #1",
+      "num": "32013",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-3743",
+      "name": "Technic Gear Rack 1x4",
+      "num": "3743",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-98138pb007",
+      "name": "Tile Round 1x1 with Black Eye Pattern",
+      "num": "98138pb007",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-14769pb004",
+      "name": "Tile Round 2x2 with Bottom Stud Holder Black Eye",
+      "num": "14769pb004",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-18674",
+      "name": "Tile Round 2x2 with Open Stud",
+      "num": "18674",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-55982",
+      "name": "Wheel 18mm D. x 14mm with Axle Hole, Fake Bolts",
+      "num": "55982",
+      "elementId": "",
+      "color": "White"
+    },
+    {
+      "id": "wedo-x90",
+      "name": "Rubber Belt Extra Large - Approx 4 1/8 x 4 1/8",
+      "num": "x90",
+      "elementId": "",
+      "color": "Yellow"
+    },
+    {
+      "id": "wedo-4265c",
+      "name": "Technic Bush 1/2 Smooth",
+      "num": "4265c",
+      "elementId": "",
+      "color": "Yellow"
     }
   ],
   "vexiq": [

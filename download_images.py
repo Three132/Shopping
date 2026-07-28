@@ -31,6 +31,20 @@ HEADERS = {
     "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
 }
 
+# รหัสสี BrickLink จริง (จาก v2.bricklink.com/catalog/color-guide) — ใช้แทน 0 (Not Applicable)
+# เพราะโค้ด 0 แทบไม่มีรูปจริงสำหรับชิ้นส่วนสีปกติ ต้องระบุสีให้ตรงถึงจะได้รูป
+BL_COLOR_ID = {
+    "Black": 11, "White": 1, "Grey": 86, "Dark Grey": 85, "Light Grey": 86,
+    "Blue": 7, "Red": 5, "Yellow": 3, "Green": 36, "Tan": 2, "Sand Yellow": 69,
+    "Yellowish Green": 34, "Medium Azur": 156, "Orange": 4,
+    "Trans-Clear": 12, "Trans-Green": 20, "Trans-Light Blue": 15,
+    "Trans-Red": 17, "Trans-Yellow": 19,
+}
+
+
+def bl_color_id(color):
+    return BL_COLOR_ID.get(color, 0)
+
 
 def sources_for(part):
     """คืนลิสต์ URL ที่จะลองดาวน์โหลด เรียงจากน่าเชื่อถือที่สุดก่อน"""
@@ -54,13 +68,20 @@ def sources_for(part):
             ".jpg",
         ))
     if num and not img:
+        cid = bl_color_id(part.get("color") or "")
         sources.append((
-            "https://img.bricklink.com/ItemImage/PN/0/%s.png" % num,
+            "https://img.bricklink.com/ItemImage/PN/%d/%s.png" % (cid, num),
             ".png",
         ))
+        if cid != 0:
+            sources.append((
+                "https://img.bricklink.com/ItemImage/PN/0/%s.png" % num,
+                ".png",
+            ))
     if tire_num:
+        cid = bl_color_id(part.get("color") or "")
         sources.append((
-            "https://img.bricklink.com/ItemImage/PN/0/%s.png" % tire_num,
+            "https://img.bricklink.com/ItemImage/PN/%d/%s.png" % (cid, tire_num),
             ".png",
         ))
     return sources

@@ -3,7 +3,7 @@
 ## ไฟล์ในชุดนี้
 - `clickrobot-shopping.html` — ตัวเว็บช้อปปิ้ง (เปิดตรง ๆ ในเบราว์เซอร์ได้เลย)
 - `ClickRobot-Shopping-Backend.gs` — สคริปต์ฝั่ง Google Sheets (ดูวิธี deploy ด้านล่าง)
-- `download_images.py` — สคริปต์โหลดรูปชิ้นส่วนทั้ง 237 ชิ้นมาเก็บไว้ในเครื่อง (EV3 79 / WeDo 67 / VEX IQ 91)
+- `download_images.py` — สคริปต์โหลดรูปชิ้นส่วนทั้ง 325 ชิ้นมาเก็บไว้ในเครื่อง (EV3 119 / WeDo 115 / VEX IQ 91)
 - `catalog.json` — ข้อมูลชิ้นส่วนทั้งหมด (ให้ download_images.py อ่าน)
 
 ## ขั้นตอนที่ 1 — โหลดรูปมาเก็บในเครื่อง (แก้ปัญหารูปไม่ขึ้น)
